@@ -77,7 +77,8 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">१. तुमचे नाव:</label>
-                        <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" value="श्री. राहुल पाटील" oninput="generateBanner()">
+                        <!-- दुरुस्ती: डिफॉल्ट व्हॅल्यू मधून 'श्री.' काढले आहे जेणेकरून ओव्हरलॅप होणार नाही -->
+                        <input type="text" id="userName" class="form-control" placeholder="उदा. राहुल पाटील" value="राहुल पाटील" oninput="generateBanner()">
                     </div>
 
                     <div class="mb-3">
@@ -113,7 +114,7 @@
                 <div class="card card-custom p-3">
                     <h5 class="text-secondary fw-bold mb-3"><i class="fa-solid fa-eye me-2"></i>HD Live Banner Preview</h5>
                     <div class="d-flex justify-content-center align-items-center" style="background: #eef2f5; border-radius: 12px; padding: 15px;">
-                        <canvas id="bannerCanvas" width="1080" height="1600"></canvas>
+                        <canvas id="bannerCanvas" width="1080" height="1350"></canvas>
                     </div>
                 </div>
             </div>
@@ -192,10 +193,6 @@
             if (files && files.length > 0) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    croppedImageObj = new Image();
-                    croppedImageObj.onload = generateBanner;
-                    croppedImageObj.src = event.target.result;
-
                     const img = document.getElementById('imageToCrop');
                     img.src = event.target.result;
                     
@@ -229,7 +226,10 @@
         function generateBanner() {
             const width = canvas.width;
             const height = canvas.height;
-            const name = document.getElementById('userName').value.trim() || "श्री. राहुल पाटील";
+            
+            // इनपुटमधून घेतलेले नाव जर 'श्री.' ने सुरू होत असेल तर ते आपोआप हटवले जाईल (कारण बॅनरवर 'श्री.' आधीच छापलेले आहे)
+            let rawName = document.getElementById('userName').value.trim() || "राहुल पाटील";
+            const name = rawName.replace(/^श्री\.?\s*/i, "");
             const memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
 
             ctx.clearRect(0, 0, width, height);
@@ -238,22 +238,14 @@
             if (bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, width, height);
             } else {
-                // बॅकग्राउंड न मिळाल्यास बॅकअप रंग
                 ctx.fillStyle = "#ffffff";
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. वर्तुळाकार फोटो पॅच
-            const photoX = 178;
-            const photoY = 1340;
-            const photoRadius = 100;
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
-            ctx.fillStyle = "#E2E8F0";
-            ctx.fill();
-            ctx.restore();
+            // २. वर्तुळाकार फोटो (खालील बॅकग्राउंड सर्कलमधील कोऑर्डिनेटनुसार अडजस्ट केले आहे)
+            const photoX = 437;
+            const photoY = 993;
+            const photoRadius = 142;
 
             if (croppedImageObj) {
                 ctx.save();
@@ -266,25 +258,23 @@
                 ctx.restore();
             }
 
-            // ३. नाव
+            // ३. नाव (X: 620 मुळे हे बॅनरवरील 'श्री.' च्या पुढे तंतोतंत बसेल)
             ctx.textAlign = "left";
             ctx.fillStyle = "#0F172A";
-            ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 320, 1285);
+            ctx.font = "bold 52px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 620, 965);
 
             // ४. सदस्य क्रमांक
             ctx.fillStyle = "#DC2626";
-            ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(memberId, 560, 1362);
+            ctx.font = "bold 38px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(memberId, 645, 1060);
 
             // ५. QR कोड
-            const qrX = 840;
-            const qrY = 1235;
-            const qrSize = 120;
+            const qrX = 760;
+            const qrY = 900;
+            const qrSize = 130;
 
             if (qrImageObj) {
-                ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(qrX - 5, qrY - 5, qrSize + 10, qrSize + 10);
                 ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
             }
         }
