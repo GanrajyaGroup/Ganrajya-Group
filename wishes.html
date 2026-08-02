@@ -121,16 +121,16 @@
     </div>
 
     <!-- फोटो क्रॉपर मॉडेल -->
-    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold">फोटो गोल आकारात क्रॉप करा</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                     <div class="crop-container">
-                        <img id="imageToCrop" src="" style="max-width: 100%;">
+                        <img id="imageToCrop" src="" style="max-width: 100%; display: block;">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -187,6 +187,7 @@
             }
         }
 
+        // फोटो सिलेक्ट केल्यावर क्रॉपर चालू करण्यासाठी फिक्स केलेला कोड
         document.getElementById('userPhotoInput').addEventListener('change', function(e) {
             const files = e.target.files;
             if (files && files.length > 0) {
@@ -195,15 +196,20 @@
                     const img = document.getElementById('imageToCrop');
                     img.src = event.target.result;
                     
-                    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
+                    const cropModalElement = document.getElementById('cropModal');
+                    const cropModal = new bootstrap.Modal(cropModalElement);
                     cropModal.show();
 
-                    document.getElementById('cropModal').addEventListener('shown.bs.modal', function () {
-                        if (cropper) cropper.destroy();
+                    cropModalElement.addEventListener('shown.bs.modal', function () {
+                        if (cropper) {
+                            cropper.destroy();
+                        }
                         cropper = new Cropper(img, {
                             aspectRatio: 1,
                             viewMode: 1,
-                            autoCropArea: 0.8
+                            autoCropArea: 0.9,
+                            responsive: true,
+                            restore: false
                         });
                     }, { once: true });
                 };
@@ -211,14 +217,28 @@
             }
         });
 
+        // फोटो क्रॉप करून कॅनव्हासवर दाखवण्यासाठी कोड
         function cropAndApply() {
             if (cropper) {
-                const canvasData = cropper.getCroppedCanvas({ width: 400, height: 400 });
-                croppedImageObj = new Image();
-                croppedImageObj.onload = generateBanner;
-                croppedImageObj.src = canvasData.toDataURL();
+                const canvasData = cropper.getCroppedCanvas({
+                    width: 400,
+                    height: 400,
+                    fillColor: '#fff'
+                });
 
-                bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
+                if (canvasData) {
+                    croppedImageObj = new Image();
+                    croppedImageObj.onload = function() {
+                        generateBanner();
+                    };
+                    croppedImageObj.src = canvasData.toDataURL('image/png');
+                }
+
+                const cropModalElement = document.getElementById('cropModal');
+                const modalInstance = bootstrap.Modal.getInstance(cropModalElement);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
             }
         }
 
@@ -231,7 +251,7 @@
 
             ctx.clearRect(0, 0, width, height);
 
-            // १. बॅकग्राउंड इमेज ड्रा करा
+            // १. बॅकग्राउंड इमेज ड्रॉ करा
             if (bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, width, height);
             } else {
@@ -239,7 +259,7 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. डाव्या बाजूचा वर्तुळाकार फोटो (इमेजमधील पांढऱ्या गोल कड्यामध्ये तंतोतंत बसेल)
+            // २. डाव्या बाजूचा वर्तुळाकार फोटो (इमेजच्या चौकटीनुसार)
             const photoX = 205;
             const photoY = 1205;
             const photoRadius = 105;
@@ -255,19 +275,19 @@
                 ctx.restore();
             }
 
-            // ३. मध्यभागी नाव (रेषेच्या अगदी वर - Y: 1180)
+            // ३. मध्यभागी नाव (रेषेच्या अगदी वर)
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
             ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
             ctx.fillText(name, 510, 1180);
 
-            // ४. सदस्य क्रमांक (रेषेच्या खाली - Y: 1245)
+            // ४. सदस्य क्रमांक (रेषेच्या खाली)
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
             ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
             ctx.fillText("सदस्य क्रमांक : " + memberId, 510, 1245);
 
-            // ५. उजव्या बाजूचा QR कोड (पांढऱ्या चौकटीमध्ये फिट बसेल - X: 844, Y: 1140)
+            // ५. उजव्या बाजूचा QR कोड
             const qrX = 844;
             const qrY = 1140;
             const qrSize = 140;
