@@ -65,9 +65,9 @@
     <div class="container py-5">
         <div class="text-center mb-4">
             <h2 class="fw-bold text-primary">
-                <i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>डिजिटल शुभेच्छा बॅनर मेकर
+                <i class="fa-solid fa-flag text-danger me-2"></i>स्वातंत्र्य दिन शुभेच्छा बॅनर
             </h2>
-            <p class="text-muted">तुमचे नाव आणि फोटो जोडून गणराज्य ग्रुपचे ब्रँडेड शुभेच्छा कार्ड तयार करा!</p>
+            <p class="text-muted">तुमचे नाव आणि फोटो जोडून गणराज्य स्वयंसहाय्यता समूहाचे अधिकृत बॅनर तयार करा!</p>
         </div>
 
         <div class="row justify-content-center g-4">
@@ -77,21 +77,12 @@
                     <h4 class="mb-3 text-secondary"><i class="fa-solid fa-pen-to-square me-2"></i>माहिती भरा</h4>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">१. शुभेच्छा प्रकार निवडा:</label>
-                        <select id="eventSelect" class="form-select fw-bold text-primary" onchange="generateBanner()">
-                            <option value="independence">🇮🇳 १५ ऑगस्ट - स्वातंत्र्य दिन</option>
-                            <option value="ganesh">🚩 गणेशोत्सव शुभेच्छा</option>
-                            <option value="diwali">🪔 शुभ दीपावली</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">२. तुमचे नाव टाका:</label>
+                        <label class="form-label fw-bold">१. तुमचे नाव टाका:</label>
                         <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" oninput="generateBanner()">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">३. तुमचा फोटो निवडा:</label>
+                        <label class="form-label fw-bold">२. तुमचा फोटो निवडा:</label>
                         <input type="file" id="userPhoto" class="form-control" accept="image/*" onchange="generateBanner()">
                     </div>
 
@@ -115,7 +106,7 @@
                 <div class="card card-custom p-3">
                     <h5 class="text-muted mb-3"><i class="fa-solid fa-image me-2"></i>HD बॅनर प्रिव्ह्यू</h5>
                     <div class="d-flex justify-content-center">
-                        <canvas id="bannerCanvas" width="600" height="800"></canvas>
+                        <canvas id="bannerCanvas" width="1000" height="1150"></canvas>
                     </div>
                 </div>
             </div>
@@ -123,16 +114,22 @@
     </div>
 
     <script>
-        let loadedImage = null;
+        let loadedUserPhoto = null;
+        let bgImage = new Image();
+        bgImage.src = 'independence_bg.jpg'; // मुख्य स्वातंत्र्य दिन बॅकग्राउंड फाईल
+
+        bgImage.onload = function() {
+            generateBanner();
+        };
 
         document.getElementById('userPhoto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    loadedImage = new Image();
-                    loadedImage.onload = function() { generateBanner(); };
-                    loadedImage.src = event.target.result;
+                    loadedUserPhoto = new Image();
+                    loadedUserPhoto.onload = function() { generateBanner(); };
+                    loadedUserPhoto.src = event.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -142,131 +139,79 @@
             const canvas = document.getElementById('bannerCanvas');
             const ctx = canvas.getContext('2d');
             const name = document.getElementById('userName').value.trim() || "तुमचे नाव";
-            const eventType = document.getElementById('eventSelect').value;
 
-            ctx.clearRect(0, 0, 600, 800);
+            ctx.clearRect(0, 0, 1000, 1150);
 
-            if (eventType === 'independence') {
-                // Background Gradient
-                let bgGradient = ctx.createLinearGradient(0, 0, 0, 650);
-                bgGradient.addColorStop(0, '#FF9933');
-                bgGradient.addColorStop(0.4, '#FFFFFF');
-                bgGradient.addColorStop(0.8, '#128807');
-                ctx.fillStyle = bgGradient;
-                ctx.fillRect(0, 0, 600, 650);
-
-                // Sun rays / Graphic Effect
-                ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
-                ctx.beginPath();
-                ctx.arc(300, 0, 400, 0, Math.PI);
-                ctx.fill();
-
-                // Ashok Chakra Watermark
-                ctx.strokeStyle = "rgba(0, 0, 128, 0.12)";
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                ctx.arc(300, 260, 140, 0, Math.PI * 2);
-                ctx.stroke();
-
-                // Header Text
-                ctx.fillStyle = "#800000";
-                ctx.font = "bold 22px Arial";
-                ctx.textAlign = "center";
-                ctx.fillText("देश विविध रंगांचा, देश विविध ढंगांचा!", 300, 50);
-
-                ctx.fillStyle = "#000080";
-                ctx.font = "bold 36px Arial";
-                ctx.fillText("भारतीय स्वातंत्र्य दिनाच्या", 300, 100);
-                
-                ctx.fillStyle = "#D32F2F";
-                ctx.font = "bold 42px Arial";
-                ctx.fillText("अमृतानुभवी हार्दिक शुभेच्छा!", 300, 150);
-
-            } else if (eventType === 'ganesh') {
-                let bgGradient = ctx.createLinearGradient(0, 0, 0, 650);
-                bgGradient.addColorStop(0, '#FF5722');
-                bgGradient.addColorStop(0.5, '#FFC107');
-                bgGradient.addColorStop(1, '#E65100');
-                ctx.fillStyle = bgGradient;
-                ctx.fillRect(0, 0, 600, 650);
-
-                ctx.fillStyle = "#FFFFFF";
-                ctx.font = "bold 38px Arial";
-                ctx.textAlign = "center";
-                ctx.fillText("॥ श्री गणेशाय नमः ॥", 300, 80);
-                ctx.font = "bold 36px Arial";
-                ctx.fillText("गणेशोत्सवाच्या हार्दिक शुभेच्छा!", 300, 140);
+            // १. मुख्य बॅकग्राउंड इमेज ड्रॉ करणे
+            if (bgImage.complete && bgImage.naturalWidth !== 0) {
+                ctx.drawImage(bgImage, 0, 0, 1000, 1000);
             } else {
-                let bgGradient = ctx.createLinearGradient(0, 0, 0, 650);
-                bgGradient.addColorStop(0, '#311B92');
-                bgGradient.addColorStop(0.5, '#B71C1C');
-                bgGradient.addColorStop(1, '#FF8F00');
-                ctx.fillStyle = bgGradient;
-                ctx.fillRect(0, 0, 600, 650);
-
-                ctx.fillStyle = "#FFD54F";
-                ctx.font = "bold 40px Arial";
-                ctx.textAlign = "center";
-                ctx.fillText("🪔 शुभ दीपावली 🪔", 300, 90);
-                ctx.font = "bold 30px Arial";
-                ctx.fillText("सर्व सदस्यांना समृद्धीच्या शुभेच्छा!", 300, 145);
+                // इमेज लोड न झाल्यास बॅकअप कलर
+                ctx.fillStyle = "#FAF8F5";
+                ctx.fillRect(0, 0, 1000, 1000);
             }
 
-            // Photo Frame Design
+            // २. डाव्या बाजूला खाली युझरचा फोटो (गोल फ्रेम)
             ctx.save();
             ctx.beginPath();
-            ctx.arc(300, 320, 110, 0, Math.PI * 2, true);
+            ctx.arc(170, 780, 100, 0, Math.PI * 2, true);
             ctx.closePath();
             ctx.clip();
 
-            if (loadedImage) {
-                ctx.drawImage(loadedImage, 190, 210, 220, 220);
+            if (loadedUserPhoto) {
+                ctx.drawImage(loadedUserPhoto, 70, 680, 200, 200);
             } else {
                 ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(190, 210, 220, 220);
+                ctx.fillRect(70, 680, 200, 200);
                 ctx.fillStyle = "#6c757d";
-                ctx.font = "bold 18px Arial";
-                ctx.fillText("फोटो निवडा", 300, 325);
+                ctx.font = "bold 20px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("फोटो निवडा", 170, 785);
             }
             ctx.restore();
 
-            // Photo Outer Border
+            // फोटो बॉर्डर
             ctx.beginPath();
-            ctx.arc(300, 320, 110, 0, Math.PI * 2, true);
+            ctx.arc(170, 780, 100, 0, Math.PI * 2, true);
             ctx.lineWidth = 6;
-            ctx.strokeStyle = "#FFFFFF";
+            ctx.strokeStyle = "#D32F2F";
             ctx.stroke();
 
-            // Member Name Tag
+            // ३. 'शुभच्छुक' नाव पट्टी (तळाशी)
             ctx.fillStyle = "#FFFFFF";
-            ctx.roundRect(60, 470, 480, 60, 30);
+            ctx.beginPath();
+            ctx.moveTo(35, 910);
+            ctx.lineTo(965, 910);
+            ctx.lineTo(930, 970);
+            ctx.lineTo(65, 970);
+            ctx.closePath();
             ctx.fill();
-            ctx.strokeStyle = "#FF9933";
-            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#1A365D";
+            ctx.lineWidth = 4;
             ctx.stroke();
 
-            ctx.fillStyle = "#111827";
-            ctx.font = "bold 26px Arial";
-            ctx.fillText("शुभच्छुक: " + name, 300, 508);
+            ctx.fillStyle = "#1A365D";
+            ctx.font = "bold 32px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("शुभच्छुक : " + name, 500, 952);
 
-            // Footer Contact Bar
+            // ४. गणराज्य स्वयंसहाय्यता समूह संपर्क पट्टी (अगदी तळाशी)
             ctx.fillStyle = "#0F172A";
-            ctx.fillRect(0, 650, 600, 150);
+            ctx.fillRect(0, 1000, 1000, 150);
 
             ctx.fillStyle = "#FF9933";
-            ctx.font = "bold 24px Arial";
-            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 300, 688);
+            ctx.font = "bold 30px Arial";
+            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 500, 1045);
 
             ctx.fillStyle = "#FFFFFF";
-            ctx.font = "18px Arial";
-            ctx.fillText("📞 संपर्क / WhatsApp: 9321430535", 300, 725);
-            ctx.fillText("✉️ ganrajyagroup1@gmail.com | 📍 मुंबई, महाराष्ट्र", 300, 760);
+            ctx.font = "22px Arial";
+            ctx.fillText("📞 संपर्क / WhatsApp: 9321430535  |  ✉️ ganrajyagroup1@gmail.com  |  📍 मुंबई", 500, 1095);
         }
 
         function downloadBanner() {
             const canvas = document.getElementById('bannerCanvas');
             const link = document.createElement('a');
-            link.download = 'Ganrajya_Group_Wish_Banner.png';
+            link.download = 'Ganrajya_Independence_Banner.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         }
