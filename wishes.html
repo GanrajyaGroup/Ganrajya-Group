@@ -67,10 +67,9 @@
                 <div class="card card-custom p-4">
                     <h5 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-user-pen me-2"></i>वैयक्तिक माहिती</h5>
 
-                    
                     <div class="mb-3">
                         <label class="form-label fw-bold">१. तुमचे नाव:</label>
-                    <input type="text" id="userName" class="form-control" placeholder="उदा. डी. एम. गायकवाड" value="डी. एम. गायकवाड" oninput="generateBanner()">
+                        <input type="text" id="userName" class="form-control" placeholder="उदा. डी. एम. गायकवाड" value="डी. एम. गायकवाड" oninput="generateBanner()">
                     </div>
 
                     <div class="mb-3">
@@ -189,10 +188,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. डाव्या बाजूच्या गोल वर्तुळात अचूक फोटो
-            const photoX = 228;
-            const photoY = 1110;
-            const photoRadius = 100;
+            // २. डाव्या बाजूच्या वर्तुळात अचूक फोटो (तंतोतंत सेंटर)
+            const photoX = 528;      // गोल कड्याचा मध्यबिंदू (X)
+            const photoY = 1115;     // थोडा खाली सरकवला (Y)
+            const photoRadius = 78;  // गोल कड्याच्या आत परफेक्ट बसण्यासाठी त्रिज्या
 
             if (userPhotoObj) {
                 ctx.save();
@@ -213,22 +212,22 @@
                 ctx.restore();
             }
 
-            // ३. नाव (मध्यभागी)
+            // ३. नाव (रेषेच्या वर, ओव्हरलॅप न होता)
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
-            ctx.font = "bold 42px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 590, 1080);
+            ctx.font = "bold 40px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 645, 1075);
 
-            // ४. सदस्य क्रमांक (मध्यभागी)
+            // ४. सदस्य क्रमांक (रेषेच्या खाली)
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
-            ctx.font = "bold 30px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText("सदस्य क्रमांक : " + memberId, 590, 1140);
+            ctx.font = "bold 28px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("सदस्य क्रमांक : " + memberId, 645, 1125);
 
             // ५. उजव्या बाजूचा QR कोड
-            const qrX = 844;
-            const qrY = 1040;
-            const qrSize = 130;
+            const qrX = 825;
+            const qrY = 1045;
+            const qrSize = 125;
 
             if (qrImageObj) {
                 ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
