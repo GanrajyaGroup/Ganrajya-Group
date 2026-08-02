@@ -3,144 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>गणराज्य ग्रुप</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
-
-        body{
-            font-family: Arial, sans-serif;
+    <title>गणराज्य ग्रुप | स्वयंसहाय्यता समूह</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #198754;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
         }
 
-        .hero{
-            background: linear-gradient(135deg,#ff9933,#138808);
-            color:white;
-            padding:100px 20px;
-            text-align:center;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fb;
         }
 
-        .card{
-            transition:.3s;
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover{
-            transform:translateY(-5px);
-            box-shadow:0 10px 20px rgba(0,0,0,.2);
+        .hero-section {
+            background: linear-gradient(rgba(13, 110, 253, 0.85), rgba(25, 135, 84, 0.85)), url('https://images.unsplash.com/photo-1556742049-0a67e5585b99?auto=format&fit=crop&q=80') center/cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
         }
 
-        footer{
-            background:#222;
-            color:white;
-            padding:20px;
-            text-align:center;
+        .feature-card {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+
+        .badge-custom {
+            font-size: 0.9rem;
+            padding: 8px 12px;
         }
     </style>
 </head>
-
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<div class="container">
+    <!-- १. नेव्हिगेशन बार (Header) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#"><i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#home"><i class="fa-solid fa-house me-1"></i> मुख्यपृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about"><i class="fa-solid fa-circle-info me-1"></i> आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#register"><i class="fa-solid fa-user-plus me-1"></i> सदस्य नोंदणी</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#login"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#loan"><i class="fa-solid fa-hand-holding-dollar me-1"></i> कर्ज अर्ज</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact"><i class="fa-solid fa-envelope me-1"></i> संपर्क</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<a class="navbar-brand" href="#">गणराज्य ग्रुप</a>
+    <!-- २. मुख्यपृष्ठ (Hero Section) -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">गणराज्य स्वयंसहाय्यता समूह</h1>
+            <p class="lead mb-4">एकत्रित बचत, उज्ज्वल भविष्य! दरमहा ₹१,००० ची बचत करून आर्थिक समृद्धीकडे पाऊल टाका.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#register" class="btn btn-warning btn-lg fw-bold"><i class="fa-solid fa-user-plus me-2"></i>नवीन सदस्य व्हा</a>
+                <a href="#loan" class="btn btn-outline-light btn-lg"><i class="fa-solid fa-file-signature me-2"></i>कर्ज अर्ज करा</a>
+            </div>
+        </div>
+    </section>
 
-<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-<span class="navbar-toggler-icon"></span>
-</button>
+    <!-- ३. वैशिष्ट्ये आणि नियम -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">समूहाची प्रमुख वैशिष्ट्ये</h2>
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center feature-card bg-white">
+                        <div class="text-primary fs-1 mb-3"><i class="fa-solid fa-piggy-bank"></i></div>
+                        <h4>मासिक बचत नियम</h4>
+                        <p class="text-muted">प्रत्येक सदस्याला दरमहा नियमबद्ध ₹१,००० बचत जमा करणे अनिवार्य आहे.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center feature-card bg-white">
+                        <div class="text-success fs-1 mb-3"><i class="fa-solid fa-hand-holding-hand"></i></div>
+                        <h4>सुलभ कर्ज सुविधा</h4>
+                        <p class="text-muted">सदस्यांना त्यांच्या गरजेनुसार तातडीने आणि कमी व्याजात कर्ज उपलब्ध करून दिले जाते.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center feature-card bg-white">
+                        <div class="text-warning fs-1 mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                        <h4>पारदर्शक कारभार</h4>
+                        <p class="text-muted">प्रत्येक सदस्याच्या बचतीची आणि कर्जाची नोंद पूर्णपणे डिजिटल व पारदर्शक राहते.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="collapse navbar-collapse" id="menu">
+    <!-- ४. आमच्याबद्दल (About Us) -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">आमच्याबद्दल</h2>
+            <div class="row align-items-center mt-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h3>गणराज्य ग्रुपची उद्दिष्टे</h3>
+                    <p class="text-muted">गणराज्य स्वयंसहाय्यता समूहाची स्थापना सदस्यांमध्ये बचतीची सवय वाढवणे आणि त्यांना गरजेच्या वेळी परस्पर सहकार्याने आर्थिक मदत उपलब्ध करून देणे या उद्देशाने करण्यात आली आहे.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i>दरमहा वेळेवर ₹१,००० जमा करणे.</li>
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i>गरजू सदस्यांना प्राधान्याने कर्ज वितरण.</li>
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i>समूहाचे वार्षिक ऑडिट व नफा वाटप.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 bg-white rounded shadow-sm">
+                        <h4 class="mb-3 text-primary"><i class="fa-solid fa-bullhorn me-2"></i>महत्त्वाचे नियम</h4>
+                        <ol class="lh-lg text-muted">
+                            <li>मासिक बचत दर महिन्याच्या १० तारखेपूर्वी जमा करणे बंधनकारक आहे.</li>
+                            <li>कर्जाची परतफेड निश्चित केलेल्या हप्त्यांमध्ये (EMI) वेळेत करणे आवश्यक आहे.</li>
+                            <li>सर्व निर्णय समूहाच्या बैठकीत बहुमताने घेतले जातात.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<ul class="navbar-nav ms-auto">
+    <!-- ५. सदस्य नोंदणी (Member Registration) -->
+    <section id="register" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">नवीन सदस्य नोंदणी अर्ज</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-section">
+                        <form id="registrationForm" onsubmit="handleRegister(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">पूर्ण नाव <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" required placeholder="नाव आडनाव">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">मोबाईल नंबर <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" required placeholder="10 अंकी नंबर">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">ओळखपत्र क्रमांक (उदा. आधार/पॅन)</label>
+                                    <input type="text" class="form-control" placeholder="उदा. ABCDE1234F">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">व्यवसाय / नोकरी</label>
+                                    <input type="text" class="form-control" placeholder="उदा. शेतकरी, व्यावसायिक">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">संपूर्ण पत्ता <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" rows="2" required placeholder="घर क्र, गल्ली, गाव, जिल्हा"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">वारसदाराचे नाव (Nominee) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" required placeholder="वारसदाराचे नाव">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">नाते (Relationship)</label>
+                                    <input type="text" class="form-control" placeholder="उदा. पत्नी, मुलगा">
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required id="agreeTerms">
+                                        <label class="form-check-label text-muted" for="agreeTerms">
+                                            मी समूहाचे सर्व नियम व दरमहा ₹१,००० बचत जमा करण्याचे मान्य करतो/करते.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100"><i class="fa-solid fa-paper-plane me-2"></i>अर्ज सबमिट करा</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<li class="nav-item"><a class="nav-link" href="#">मुख्यपृष्ठ</a></li>
-<li class="nav-item"><a class="nav-link" href="#">आमच्याबद्दल</a></li>
-<li class="nav-item"><a class="nav-link" href="#">सदस्य नोंदणी</a></li>
-<li class="nav-item"><a class="nav-link" href="#">कर्ज अर्ज</a></li>
-<li class="nav-item"><a class="nav-link" href="#">संपर्क</a></li>
+    <!-- ६. सदस्य लॉगिन (Login) -->
+    <section id="login" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">सदस्य लॉगिन</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="form-section">
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div class="mb-3">
+                                <label class="form-label">मोबाईल नंबर / सदस्य आयडी</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" class="form-control" required placeholder="तुमचा नंबर किंवा ID टाका">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">पासवर्ड</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                    <input type="password" class="form-control" required placeholder="पासवर्ड टाका">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 btn-lg"><i class="fa-solid fa-right-to-bracket me-2"></i>लॉगिन करा</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</ul>
+    <!-- ७. कर्ज अर्ज (Loan Application) -->
+    <section id="loan" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">कर्ज अर्ज</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="form-section">
+                        <form id="loanForm" onsubmit="handleLoan(event)">
+                            <div class="mb-3">
+                                <label class="form-label">सदस्याचे नाव / आयडी <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required placeholder="तुमचे नाव किंवा सदस्य ID">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">हवी असलेली कर्जाची रक्कम (₹) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" required placeholder="उदा. 25000">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">कर्जाचे कारण <span class="text-danger">*</span></label>
+                                <select class="form-select" required>
+                                    <option value="">कारण निवडा...</option>
+                                    <option value="education">शिक्षण</option>
+                                    <option value="medical">वैद्यकीय उपचार</option>
+                                    <option value="business">व्यवसाय विस्तार</option>
+                                    <option value="personal">वैयक्तिक गरज</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">परतफेडीचा कालावधी (महिने) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" required placeholder="उदा. 12 किंवा 24 महिने">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">हमीदार सदस्याचे नाव (Guarantor Member)</label>
+                                <input type="text" class="form-control" placeholder="समूहातील दुसर‍या सदस्याचे नाव">
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 btn-lg fw-bold"><i class="fa-solid fa-hand-holding-dollar me-2"></i>कर्जासाठी अर्ज सबमिट करा</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</div>
+    <!-- ८. संपर्क (Contact) -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">संपर्क करा</h2>
+            <div class="row g-4 mt-2">
+                <div class="col-md-4 text-center">
+                    <div class="p-3 bg-white rounded shadow-sm">
+                        <div class="fs-2 text-primary mb-2"><i class="fa-solid fa-location-dot"></i></div>
+                        <h5>कार्यालयाचा पत्ता</h5>
+                        <p class="text-muted">गणराज्य ग्रुप कार्यालय, मुख्य रस्ता, तालुका व जिल्हा कार्यालय परिसर.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-3 bg-white rounded shadow-sm">
+                        <div class="fs-2 text-success mb-2"><i class="fa-solid fa-phone"></i></div>
+                        <h5>मोबाईल / व्हॉट्सॲप</h5>
+                        <p class="text-muted">+91 98765 43210<br>+91 91234 56789</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-3 bg-white rounded shadow-sm">
+                        <div class="fs-2 text-danger mb-2"><i class="fa-solid fa-envelope"></i></div>
+                        <h5>ईमेल</h5>
+                        <p class="text-muted">contact@ganrajyagroup.org<br>support@ganrajyagroup.org</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</div>
-</nav>
+    <!-- ९. फुटर (Footer) -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 गणराज्य स्वयंसहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            <small class="text-muted">Developed for Ganrajya Group Management System</small>
+        </div>
+    </footer>
 
-<section class="hero">
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
 
-<div class="container">
+    <!-- JavaScript Actions -->
+    <script>
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('सदस्य नोंदणी अर्ज यशस्वीरीत्या प्राप्त झाला आहे! Admin द्वारे तपासणी करून संपर्क साधला जाईल.');
+            document.getElementById('registrationForm').reset();
+        }
 
-<h1>गणराज्य ग्रुप</h1>
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('लॉगिन यशस्वी! (टीप: डेटाबेस जोडल्यावर डॅशबोर्ड उघडेल)');
+            document.getElementById('loginForm').reset();
+        }
 
-<p class="lead">
-स्वयंसहाय्यता समूह व्यवस्थापन प्रणाली
-</p>
-
-<a href="#" class="btn btn-light btn-lg">
-सदस्य नोंदणी
-</a>
-
-</div>
-
-</section>
-
-<section class="container py-5">
-
-<div class="row">
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h3>सदस्य</h3>
-
-<p>
-नवीन सदस्य नोंदणी व माहिती व्यवस्थापन
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h3>कर्ज</h3>
-
-<p>
-ऑनलाइन कर्ज अर्ज व स्थिती
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h3>बचत</h3>
-
-<p>
-मासिक बचत व हप्ते
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 गणराज्य ग्रुप | सर्व हक्क राखीव
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+        function handleLoan(event) {
+            event.preventDefault();
+            alert('कर्ज अर्ज सबमिट झाला आहे! मंजुरीची स्थिती लवकरच कळवली जाईल.');
+            document.getElementById('loanForm').reset();
+        }
+    </script>
 </body>
 </html>
