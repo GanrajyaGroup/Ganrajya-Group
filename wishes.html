@@ -180,42 +180,49 @@
         }
 
         // फोटो इनपुट हँडलर (थेट आणि क्रॉप दोन्ही सपोर्ट)
-        document.getElementById('userPhotoInput').addEventListener('change', function(e) {
-            const files = e.target.files;
-            if (files && files.length > 0) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    croppedImageObj = new Image();
-                    croppedImageObj.onload = generateBanner;
-                    croppedImageObj.src = event.target.result;
+       function generateBanner() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const name = document.getElementById('userName').value.trim() || "श्री. राहुल पाटील";
+            const memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
 
-                    const img = document.getElementById('imageToCrop');
-                    img.src = event.target.result;
-                    
-                    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
-                    cropModal.show();
+            ctx.clearRect(0, 0, width, height);
 
-                    document.getElementById('cropModal').addEventListener('shown.bs.modal', function () {
-                        if (cropper) cropper.destroy();
-                        cropper = new Cropper(img, {
-                            aspectRatio: 1,
-                            viewMode: 1,
-                            autoCropArea: 0.8
-                        });
-                    }, { once: true });
-                };
-                reader.readAsDataURL(files[0]);
+            // १. बॅकग्राउंड इमेज
+            if (bgImage.complete && bgImage.naturalWidth !== 0) {
+                ctx.drawImage(bgImage, 0, 0, width, height);
             }
-        });
 
-        function cropAndApply() {
-            if (cropper) {
-                const canvasData = cropper.getCroppedCanvas({ width: 400, height: 400 });
-                croppedImageObj = new Image();
-                croppedImageObj.onload = generateBanner;
-                croppedImageObj.src = canvasData.toDataURL();
+            // २. फोटो पोझिशनिंग (178, 1340)
+            const photoX = 178;
+            const photoY = 1340;
+            const photoRadius = 100;
 
-                bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
+            if (croppedImageObj) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.clip();
+
+                ctx.drawImage(croppedImageObj, photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
+                ctx.restore();
+            }
+
+            // ३. नाव (रेषेच्या वर)
+            ctx.textAlign = "left";
+            ctx.fillStyle = "#0F172A";
+            ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 340, 1290);
+
+            // ४. फक्त ID नंबर (डबल मजकूर टाळण्यासाठी)
+            ctx.fillStyle = "#DC2626";
+            ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(memberId, 560, 1362);
+
+            // ५. QR कोड
+            if (qrImageObj) {
+                ctx.drawImage(qrImageObj, 840, 1235, 120, 120);
             }
         }
 
