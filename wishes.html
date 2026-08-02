@@ -3,40 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>विशेष शुभेच्छा बॅनर | गणराज्य समूह</title>
+    <title>विशेष शुभेच्छा बॅनर मेकर | गणराज्य समूह</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Cropper.js (फोटो परफेक्ट गोल क्रॉप करण्यासाठी) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- QR Code Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7fe;
+            background-color: #f0f2f5;
         }
         .card-custom {
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             background: #ffffff;
         }
         #bannerCanvas {
             max-width: 100%;
             height: auto;
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             background-color: #ffffff;
         }
-        .btn-download {
-            background: linear-gradient(135deg, #198754, #0d5132);
-            color: white;
-            font-weight: bold;
-            padding: 12px 25px;
+        .crop-container {
+            max-height: 350px;
+            background-color: #333;
             border-radius: 8px;
-            border: none;
+            overflow: hidden;
         }
-        .btn-download:hover {
-            background: linear-gradient(135deg, #146c43, #083420);
-            color: white;
+        .social-btn {
+            border-radius: 8px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -62,165 +64,398 @@
     </nav>
 
     <!-- मुख्य कंटेंट -->
-    <div class="container py-5">
+    <div class="container py-4">
         <div class="text-center mb-4">
             <h2 class="fw-bold text-primary">
-                <i class="fa-solid fa-flag text-danger me-2"></i>स्वातंत्र्य दिन विशेष शुभेच्छा बॅनर
+                <i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>डिजिटल शुभेच्छा बॅनर मेकर
             </h2>
-            <p class="text-muted">तुमचे नाव आणि फोटो जोडून गणराज्य स्वयंसहाय्यता समूहाचे अधिकृत शुभेच्छा कार्ड तयार करा!</p>
+            <p class="text-muted mb-0">गणराज्य स्वयंसहाय्यता समूहाचे अधिकृत, हाय-क्वालिटी शुभेच्छा कार्ड तयार करा आणि थेट शेअर करा!</p>
         </div>
 
-        <div class="row justify-content-center g-4">
-            <!-- इनपुट फॉर्म -->
+        <div class="row g-4">
+            <!-- डावी बाजू: इनपुट फॉर्म आणि पर्याय -->
             <div class="col-lg-5">
                 <div class="card card-custom p-4">
-                    <h4 class="mb-3 text-secondary"><i class="fa-solid fa-pen-to-square me-2"></i>आपली माहिती भरा</h4>
+                    
+                    <!-- १. ऑटो लॉगिन डिटेक्ट संदेश (सदस्यांसाठी) -->
+                    <div id="memberAutoNotice" class="alert alert-success d-flex align-items-center mb-3" style="display: none !important;">
+                        <i class="fa-solid fa-circle-check fs-4 me-2"></i>
+                        <div>
+                            <strong>सदस्य ओळखले गेले!</strong> तुमची माहिती (नाव व फोटो) आपोआप लोड झाली आहे.
+                        </div>
+                    </div>
 
+                    <h5 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-sliders me-2"></i>बॅनर पर्याय</h5>
+
+                    <!-- २. टेम्पलेट निवड -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold">१. तुमचे नाव टाका:</label>
-                        <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" oninput="generateBanner()">
+                        <label class="form-label fw-bold">१. उत्सव / सण निवडा:</label>
+                        <select id="templateSelect" class="form-select fw-bold text-primary" onchange="generateBanner()">
+                            <option value="aug15">🇮🇳 १५ ऑगस्ट - स्वातंत्र्य दिन</option>
+                            <option value="jan26">🇮🇳 २६ जानेवारी - प्रजासत्ताक दिन</option>
+                            <option value="ganesh">🌺 श्री गणेशोत्सव शुभेच्छा</option>
+                            <option value="diwali">🪔 शुभ दीपावली</option>
+                            <option value="newyear">🎉 नवीन वर्षाच्या हार्दिक शुभेच्छा</option>
+                        </select>
                     </div>
 
+                    <!-- ३. नाव आणि सदस्य क्र. -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-7">
+                            <label class="form-label fw-bold">२. तुमचे नाव:</label>
+                            <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" value="श्री. राहुल पाटील" oninput="generateBanner()">
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold">सदस्य क्र.:</label>
+                            <input type="text" id="memberId" class="form-control" placeholder="GGS-0125" value="GGS-0125" oninput="generateBanner()">
+                        </div>
+                    </div>
+
+                    <!-- ४. फोटो अपलोड आणि क्रॉपर मोडल बटन -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold">२. तुमचा फोटो निवडा:</label>
-                        <input type="file" id="userPhoto" class="form-control" accept="image/*" onchange="generateBanner()">
+                        <label class="form-label fw-bold">३. फोटो निवडा (चेहरा मध्यभागी सेट करा):</label>
+                        <input type="file" id="userPhotoInput" class="form-control" accept="image/*">
                     </div>
 
-                    <div class="p-3 bg-light rounded mb-3 border">
-                        <h6 class="fw-bold mb-1 text-primary"><i class="fa-solid fa-address-card me-1"></i> ऑटो-प्रिंट संपर्क:</h6>
-                        <small class="text-muted d-block"><b>गणराज्य स्वयंसहाय्यता समूह</b></small>
-                        <small class="text-muted d-block">📞 संपर्क: +91 93214 30535</small>
-                        <small class="text-muted d-block">✉️ ganrajyagroup1@gmail.com | 📍 मुंबई</small>
+                    <!-- ५. HD साईझ पर्याय -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">४. बॅनर आकार (HD Export):</label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="aspectRatio" id="sizeInsta" value="insta" checked onchange="updateCanvasSize()">
+                            <label class="btn btn-outline-primary" for="sizeInsta"><i class="fa-brands fa-instagram me-1"></i> Portrait (1080x1350)</label>
+
+                            <input type="radio" class="btn-check" name="aspectRatio" id="sizeSquare" value="square" onchange="updateCanvasSize()">
+                            <label class="btn btn-outline-primary" for="sizeSquare"><i class="fa-solid fa-square me-1"></i> Square (1080x1080)</label>
+                        </div>
                     </div>
 
-                    <div class="d-grid mt-2">
-                        <button class="btn btn-download btn-lg" onclick="downloadBanner()">
-                            <i class="fa-solid fa-download me-2"></i>बॅनर डाऊनलोड करा
+                    <hr>
+
+                    <!-- ६. डाऊनलोड व सोशल शेअर बटने -->
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success btn-lg fw-bold" onclick="downloadBanner()">
+                            <i class="fa-solid fa-download me-2"></i>बॅनर डाऊनलोड करा (PNG)
+                        </button>
+                        <button class="btn btn-primary fw-bold" onclick="shareBanner()">
+                            <i class="fa-solid fa-share-nodes me-2"></i>थेट शेअर करा (Web Share)
                         </button>
                     </div>
+
+                    <!-- सोशल मीडिया व्हॉट्सॲप / टेलिग्राम -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-sm btn-outline-success social-btn w-48" onclick="shareToWhatsApp()"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</button>
+                        <button class="btn btn-sm btn-outline-info social-btn w-48" onclick="shareToTelegram()"><i class="fa-brands fa-telegram me-1"></i> Telegram</button>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- प्रिव्ह्यू Canvas -->
-            <div class="col-lg-6 text-center">
+            <!-- उजवी बाजू: लाईव्ह Canvas प्रिव्ह्यू -->
+            <div class="col-lg-7 text-center">
                 <div class="card card-custom p-3">
-                    <h5 class="text-muted mb-3"><i class="fa-solid fa-image me-2"></i>HD बॅनर प्रिव्ह्यू</h5>
-                    <div class="d-flex justify-content-center">
-                        <canvas id="bannerCanvas" width="1000" height="1150"></canvas>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="text-secondary fw-bold mb-0"><i class="fa-solid fa-eye me-2"></i>HD Live Preview</h5>
+                        <span class="badge bg-danger"><i class="fa-solid fa-fire me-1"></i>व्हायरल डिझाईन</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center align-items-center" style="min-height: 500px; background: #eef2f5; border-radius: 12px; padding: 10px;">
+                        <canvas id="bannerCanvas" width="1080" height="1350"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        let loadedUserPhoto = null;
+    <!-- फोटो क्रॉपर मॉडेल (Modal for Circle Crop) -->
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">फोटो क्रॉप करा (चेहरा मध्यभागी आणा)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="crop-container">
+                        <img id="imageToCrop" src="" style="max-width: 100%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करा</button>
+                    <button type="button" class="btn btn-primary" onclick="cropAndApply()">क्रॉप करा व जोडा</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        document.getElementById('userPhoto').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
+    <!-- लपवलेला QR Code कंटेनर -->
+    <div id="qrcode" style="display:none;"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <script>
+        let canvas = document.getElementById('bannerCanvas');
+        let ctx = canvas.getContext('2d');
+        let cropper = null;
+        let croppedImageObj = null;
+        let qrImageObj = null;
+
+        // १. QR Code जनरेट करा
+        window.addEventListener('load', function() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "https://ganrajyagroup.github.io/Ganrajya-Group/",
+                width: 120,
+                height: 120
+            });
+            setTimeout(loadQRCodeImage, 500);
+        });
+
+        function loadQRCodeImage() {
+            const qrImgElement = document.querySelector("#qrcode img");
+            if(qrImgElement && qrImgElement.src) {
+                qrImageObj = new Image();
+                qrImageObj.onload = generateBanner;
+                qrImageObj.src = qrImgElement.src;
+            }
+        }
+
+        // २. कॅनव्हास आकार बदलणे (1080x1350 किंवा 1080x1080)
+        function updateCanvasSize() {
+            const isSquare = document.getElementById('sizeSquare').checked;
+            canvas.width = 1080;
+            canvas.height = isSquare ? 1080 : 1350;
+            generateBanner();
+        }
+
+        // ३. फोटो क्रॉपर लॉजिक (Cropper.js)
+        document.getElementById('userPhotoInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files && files.length > 0) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    loadedUserPhoto = new Image();
-                    loadedUserPhoto.onload = function() { generateBanner(); };
-                    loadedUserPhoto.src = event.target.result;
+                    const img = document.getElementById('imageToCrop');
+                    img.src = event.target.result;
+                    
+                    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
+                    cropModal.show();
+
+                    document.getElementById('cropModal').addEventListener('shown.bs.modal', function () {
+                        if (cropper) cropper.destroy();
+                        cropper = new Cropper(img, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 0.8
+                        });
+                    }, { once: true });
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(files[0]);
             }
         });
 
+        function cropAndApply() {
+            if (cropper) {
+                const canvasData = cropper.getCroppedCanvas({ width: 400, height: 400 });
+                croppedImageObj = new Image();
+                croppedImageObj.onload = generateBanner;
+                croppedImageObj.src = canvasData.toDataURL();
+
+                bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
+            }
+        }
+
+        // ४. मुख्य बॅनर ड्रॉईंग इंजिन (Graphics Engine)
         function generateBanner() {
-            const canvas = document.getElementById('bannerCanvas');
-            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
             const name = document.getElementById('userName').value.trim() || "तुमचे नाव";
+            const memberId = document.getElementById('memberId').value.trim() || "GGS-0000";
+            const template = document.getElementById('templateSelect').value;
 
-            ctx.clearRect(0, 0, 1000, 1150);
+            ctx.clearRect(0, 0, width, height);
 
-            // १. पार्श्वभूमी (Background Gradient)
-            let bgGradient = ctx.createLinearGradient(0, 0, 0, 1000);
-            bgGradient.addColorStop(0, '#FFF5EC');
-            bgGradient.addColorStop(0.5, '#FFFFFF');
-            bgGradient.addColorStop(1, '#E8F5E9');
-            ctx.fillStyle = bgGradient;
-            ctx.fillRect(0, 0, 1000, 1000);
+            // १. थीमनुसार बॅकग्राउंड
+            if (template === 'aug15' || template === 'jan26') {
+                let grad = ctx.createLinearGradient(0, 0, 0, height);
+                grad.addColorStop(0, '#FF9933');
+                grad.addColorStop(0.35, '#FFFFFF');
+                grad.addColorStop(0.7, '#128807');
+                grad.addColorStop(1, '#0B4604');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, width, height);
 
-            // २. स्वातंत्र्य दिन संदेश मजकूर
-            ctx.fillStyle = "#A91D22";
-            ctx.font = "bold 28px Arial, sans-serif";
-            ctx.textAlign = "center";
-            ctx.fillText("देश विविध रंगांचा, देश विविध ढंगांचा,", 500, 80);
-            ctx.fillText("देश विविधता जपणाऱ्या एकात्मतेचा...!", 500, 120);
+                // अशोक चक्र वॉटरमार्क
+                ctx.strokeStyle = "rgba(0, 0, 128, 0.08)";
+                ctx.lineWidth = 10;
+                ctx.beginPath();
+                ctx.arc(width/2, height * 0.35, 300, 0, Math.PI * 2);
+                ctx.stroke();
 
-            ctx.fillStyle = "#FF9933";
-            ctx.font = "bold 85px Arial, sans-serif";
-            ctx.fillText("१५ ऑगस्ट", 500, 230);
+                // शीर्ष मजकूर
+                ctx.fillStyle = "#800000";
+                ctx.font = "bold 40px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("देश विविध रंगांचा, देश विविध ढंगांचा!", width/2, 110);
+
+                ctx.fillStyle = "#000080";
+                ctx.font = "bold 65px Arial";
+                ctx.fillText(template === 'aug15' ? "भारतीय स्वातंत्र्य दिनाच्या" : "प्रजासत्ताक दिनाच्या", width/2, 190);
+
+                ctx.fillStyle = "#D32F2F";
+                ctx.font = "bold 75px Arial";
+                ctx.fillText("हार्दिक शुभेच्छा!", width/2, 270);
+
+            } else if (template === 'ganesh') {
+                let grad = ctx.createLinearGradient(0, 0, 0, height);
+                grad.addColorStop(0, '#E65100');
+                grad.addColorStop(0.5, '#FFB300');
+                grad.addColorStop(1, '#BF360C');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.fillStyle = "#FFFFFF";
+                ctx.font = "bold 60px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("॥ श्री गणेशाय नमः ॥", width/2, 140);
+                ctx.font = "bold 70px Arial";
+                ctx.fillText("गणेशोत्सवाच्या हार्दिक शुभेच्छा!", width/2, 230);
+            } else {
+                let grad = ctx.createLinearGradient(0, 0, 0, height);
+                grad.addColorStop(0, '#311B92');
+                grad.addColorStop(0.5, '#B71C1C');
+                grad.addColorStop(1, '#FF8F00');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, 600, 650);
+
+                ctx.fillStyle = "#FFD54F";
+                ctx.font = "bold 70px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("🪔 शुभ दीपावली 🪔", width/2, 150);
+                ctx.font = "bold 55px Arial";
+                ctx.fillText("समृद्धी आणि आनंदाच्या शुभेच्छा!", width/2, 240);
+            }
+
+            // २. वरच्या डाव्या कोपऱ्यात समूहाचे ब्रँडिंग (Logo & Name)
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            ctx.roundRect(40, 40, 450, 90, 20);
+            ctx.fill();
 
             ctx.fillStyle = "#000080";
-            ctx.font = "bold 75px Arial, sans-serif";
-            ctx.fillText("स्वातंत्र्य दिनाच्या", 500, 320);
+            ctx.font = "bold 28px Arial";
+            ctx.textAlign = "left";
+            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 60, 95);
 
-            ctx.fillStyle = "#128807";
-            ctx.font = "bold 50px Arial, sans-serif";
-            ctx.fillText("सर्वांना हार्दिक शुभेच्छा!", 500, 390);
+            // ३. युझरचा गोल फोटो (Center Cropped Circle)
+            const photoY = height * 0.48;
+            const photoRadius = 180;
 
-            // ३. सदस्याचा फोटो (गोल फ्रेम)
             ctx.save();
             ctx.beginPath();
-            ctx.arc(500, 600, 140, 0, Math.PI * 2, true);
+            ctx.arc(width/2, photoY, photoRadius, 0, Math.PI * 2, true);
             ctx.closePath();
             ctx.clip();
 
-            if (loadedUserPhoto) {
-                ctx.drawImage(loadedUserPhoto, 360, 460, 280, 280);
+            if (croppedImageObj) {
+                ctx.drawImage(croppedImageObj, width/2 - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
             } else {
-                ctx.fillStyle = "#E0E0E0";
-                ctx.fillRect(360, 460, 280, 280);
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(width/2 - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
                 ctx.fillStyle = "#666666";
-                ctx.font = "bold 26px Arial";
-                ctx.fillText("फोटो निवडा", 500, 610);
+                ctx.font = "bold 32px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("तुमचा फोटो", width/2, photoY);
             }
             ctx.restore();
 
-            // फोटोची बॉर्डर (तिरंगा थीम)
+            // फोटो तिरंगा फ्रेम / बॉर्डर
             ctx.beginPath();
-            ctx.arc(500, 600, 140, 0, Math.PI * 2, true);
-            ctx.lineWidth = 8;
+            ctx.arc(width/2, photoY, photoRadius, 0, Math.PI * 2, true);
+            ctx.lineWidth = 12;
             ctx.strokeStyle = "#FF9933";
             ctx.stroke();
 
-            // ४. शुभेच्छुक नाव पट्टी
+            // ४. नाव आणि सदस्य क्रमांक पट्टी
+            const nameY = photoY + photoRadius + 60;
             ctx.fillStyle = "#FFFFFF";
-            ctx.beginPath();
-            ctx.roundRect(150, 800, 700, 80, 40);
+            ctx.roundRect(width/2 - 380, nameY, 760, 130, 30);
             ctx.fill();
             ctx.strokeStyle = "#000080";
             ctx.lineWidth = 4;
             ctx.stroke();
 
-            ctx.fillStyle = "#000080";
-            ctx.font = "bold 38px Arial, sans-serif";
-            ctx.fillText("शुभच्छुक : " + name, 500, 853);
+            ctx.fillStyle = "#111827";
+            ctx.font = "bold 42px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("शुभच्छुक: " + name, width/2, nameY + 55);
 
-            // ५. गणराज्य समूह ऑटो-प्रिंट संपर्क पट्टी (तळाशी)
+            ctx.fillStyle = "#D32F2F";
+            ctx.font = "bold 28px Arial";
+            ctx.fillText("सदस्य क्र.: " + memberId, width/2, nameY + 100);
+
+            // ५. तळाशी संपर्क माहिती आणि QR Code पट्टी
+            const footerY = height - 180;
             ctx.fillStyle = "#0F172A";
-            ctx.fillRect(0, 970, 1000, 180);
+            ctx.fillRect(0, footerY, width, 180);
 
             ctx.fillStyle = "#FF9933";
-            ctx.font = "bold 34px Arial, sans-serif";
-            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 500, 1025);
+            ctx.font = "bold 34px Arial";
+            ctx.textAlign = "left";
+            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 60, footerY + 55);
 
             ctx.fillStyle = "#FFFFFF";
-            ctx.font = "24px Arial, sans-serif";
-            ctx.fillText("📞 संपर्क / WhatsApp: 9321430535  |  ✉️ ganrajyagroup1@gmail.com", 500, 1075);
-            ctx.fillText("📍 मुंबई, महाराष्ट्र", 500, 1115);
+            ctx.font = "24px Arial";
+            ctx.fillText("📞 संपर्क / WhatsApp: 9321430535", 60, footerY + 100);
+            ctx.fillText("✉️ ganrajyagroup1@gmail.com | 📍 मुंबई", 60, footerY + 140);
+
+            // QR Code उजव्या कोपऱ्यात लावणे
+            if (qrImageObj) {
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(width - 190, footerY + 15, 150, 150);
+                ctx.drawImage(qrImageObj, width - 180, footerY + 25, 130, 130);
+            }
         }
 
+        // ५. डाऊनलोड आणि ऑटो काउंटर (Admin Analytics)
         function downloadBanner() {
-            const canvas = document.getElementById('bannerCanvas');
             const link = document.createElement('a');
-            link.download = 'Ganrajya_Swatantra_Din_Wish.png';
+            link.download = 'Ganrajya_Group_Wish.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
+
+            // Admin Counter नोंदीसाठी (Local Analytics Sim)
+            let count = localStorage.getItem('banner_download_count') || 0;
+            localStorage.setItem('banner_download_count', parseInt(count) + 1);
+        }
+
+        // ६. Web Share API (मोबाईलवर थेट शेअर करण्यासाठी)
+        async function shareBanner() {
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'Ganrajya_Wish.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: 'गणराज्य समूह शुभेच्छा बॅनर',
+                            text: 'गणराज्य स्वयंसहाय्यता समूहाच्या वतीने हार्दिक शुभेच्छा!'
+                        });
+                    } catch (err) {
+                        console.log("Share canceled", err);
+                    }
+                } else {
+                    alert("तुमच्या ब्राऊझरमध्ये नेटिव्ह शेअरिंग सपोर्ट नाही. बॅनर डाऊनलोड करून शेअर करा!");
+                }
+            });
+        }
+
+        function shareToWhatsApp() {
+            const text = encodeURIComponent("गणराज्य स्वयंसहाय्यता समूहाच्या अधिकृत शुभेच्छा बॅनर लिंक: https://ganrajyagroup.github.io/Ganrajya-Group/");
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function shareToTelegram() {
+            const text = encodeURIComponent("गणराज्य स्वयंसहाय्यता समूह शुभेच्छा बॅनर");
+            const url = encodeURIComponent("https://ganrajyagroup.github.io/Ganrajya-Group/");
+            window.open(`https://telegram.me/share/url?url=${url}&text=${text}`, '_blank');
         }
 
         window.onload = generateBanner;
