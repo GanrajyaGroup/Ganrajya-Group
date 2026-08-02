@@ -157,14 +157,14 @@
         let qrImageObj = null;
 
         const bgImage = new Image();
-        bgImage.src = 'background.jpg';
+        bgImage.src = 'background.png';
 
         bgImage.onload = function() {
             generateBanner();
         };
 
         bgImage.onerror = function() {
-            console.error("background.jpg लोड होऊ शकली नाही.");
+            console.error("background.png लोड होऊ शकली नाही.");
             generateBanner();
         };
 
