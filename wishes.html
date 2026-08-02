@@ -77,8 +77,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">१. तुमचे नाव:</label>
-                        <!-- दुरुस्ती: डिफॉल्ट व्हॅल्यू मधून 'श्री.' काढले आहे जेणेकरून ओव्हरलॅप होणार नाही -->
-                        <input type="text" id="userName" class="form-control" placeholder="उदा. राहुल पाटील" value="राहुल पाटील" oninput="generateBanner()">
+                        <input type="text" id="userName" class="form-control" placeholder="उदा. डी. एम. गायकवाड" value="डी. एम. गायकवाड" oninput="generateBanner()">
                     </div>
 
                     <div class="mb-3">
@@ -114,7 +113,7 @@
                 <div class="card card-custom p-3">
                     <h5 class="text-secondary fw-bold mb-3"><i class="fa-solid fa-eye me-2"></i>HD Live Banner Preview</h5>
                     <div class="d-flex justify-content-center align-items-center" style="background: #eef2f5; border-radius: 12px; padding: 15px;">
-                        <canvas id="bannerCanvas" width="1080" height="1350"></canvas>
+                        <canvas id="bannerCanvas" width="1080" height="1440"></canvas>
                     </div>
                 </div>
             </div>
@@ -227,14 +226,12 @@
             const width = canvas.width;
             const height = canvas.height;
             
-            // इनपुटमधून घेतलेले नाव जर 'श्री.' ने सुरू होत असेल तर ते आपोआप हटवले जाईल (कारण बॅनरवर 'श्री.' आधीच छापलेले आहे)
-            let rawName = document.getElementById('userName').value.trim() || "राहुल पाटील";
-            const name = rawName.replace(/^श्री\.?\s*/i, "");
-            const memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
+            let name = document.getElementById('userName').value.trim() || "डी. एम. गायकवाड";
+            let memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
 
             ctx.clearRect(0, 0, width, height);
 
-            // १. बॅकग्राउंड इमेज
+            // १. बॅकग्राउंड इमेज ड्रा करा
             if (bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, width, height);
             } else {
@@ -242,10 +239,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. वर्तुळाकार फोटो (खालील बॅकग्राउंड सर्कलमधील कोऑर्डिनेटनुसार अडजस्ट केले आहे)
-            const photoX = 437;
-            const photoY = 993;
-            const photoRadius = 142;
+            // २. डाव्या बाजूचा वर्तुळाकार फोटो (इमेजमधील पांढऱ्या गोल कड्यामध्ये तंतोतंत बसेल)
+            const photoX = 205;
+            const photoY = 1205;
+            const photoRadius = 105;
 
             if (croppedImageObj) {
                 ctx.save();
@@ -258,21 +255,22 @@
                 ctx.restore();
             }
 
-            // ३. नाव (X: 620 मुळे हे बॅनरवरील 'श्री.' च्या पुढे तंतोतंत बसेल)
-            ctx.textAlign = "left";
+            // ३. मध्यभागी नाव (रेषेच्या अगदी वर - Y: 1180)
+            ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
-            ctx.font = "bold 52px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 620, 965);
+            ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 510, 1180);
 
-            // ४. सदस्य क्रमांक
+            // ४. सदस्य क्रमांक (रेषेच्या खाली - Y: 1245)
+            ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
-            ctx.font = "bold 38px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(memberId, 645, 1060);
+            ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("सदस्य क्रमांक : " + memberId, 510, 1245);
 
-            // ५. QR कोड
-            const qrX = 760;
-            const qrY = 900;
-            const qrSize = 130;
+            // ५. उजव्या बाजूचा QR कोड (पांढऱ्या चौकटीमध्ये फिट बसेल - X: 844, Y: 1140)
+            const qrX = 844;
+            const qrY = 1140;
+            const qrSize = 140;
 
             if (qrImageObj) {
                 ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
