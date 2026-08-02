@@ -131,26 +131,29 @@
             generateBanner();
         };
 
-        bgImage.onerror = function() {
-            console.error("background.png लोड होऊ शकली नाही.");
-            generateBanner();
-        };
-
+        // QR कोड जनरेट करा
         window.addEventListener('load', function() {
             new QRCode(document.getElementById("qrcode"), {
                 text: "https://ganrajyagroup.github.io/Ganrajya-Group/",
-                width: 150,
-                height: 150
+                width: 200,
+                height: 200
             });
-            setTimeout(loadQRCodeImage, 500);
+            
+            // मोबाईलसाठी थोडे थांबून QR इमेज कॅप्चर करा
+            setTimeout(loadQRCodeImage, 800);
         });
 
         function loadQRCodeImage() {
-            const qrImgElement = document.querySelector("#qrcode img");
-            if(qrImgElement && qrImgElement.src) {
-                qrImageObj = new Image();
-                qrImageObj.onload = generateBanner;
-                qrImageObj.src = qrImgElement.src;
+            const qrCanvas = document.querySelector("#qrcode canvas");
+            const qrImg = document.querySelector("#qrcode img");
+
+            qrImageObj = new Image();
+            qrImageObj.onload = generateBanner;
+
+            if (qrCanvas) {
+                qrImageObj.src = qrCanvas.toDataURL("image/png");
+            } else if (qrImg && qrImg.src) {
+                qrImageObj.src = qrImg.src;
             } else {
                 generateBanner();
             }
@@ -188,10 +191,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. डाव्या बाजूच्या ऑरेंज वर्तुळात अचूक फोटो
-            const photoX = 205;
-            const photoY = 1194;
-            const photoRadius = 100;
+            // २. डाव्या बाजूच्या गोल वर्तुळात फोटो
+            const photoX = 285;      // डाव्या बाजूच्या वर्तुळाचा अचूक X coordinate
+            const photoY = 1115;     // डाव्या बाजूच्या वर्तुळाचा अचूक Y coordinate
+            const photoRadius = 78;  // वर्तुळाची त्रिज्या
 
             if (userPhotoObj) {
                 ctx.save();
@@ -212,24 +215,24 @@
                 ctx.restore();
             }
 
-            // ३. नाव
+            // ३. नाव (सेंटर अलाइन)
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
-            ctx.font = "bold 40px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 500, 1175);
+            ctx.font = "bold 38px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 520, 1100);
 
             // ४. सदस्य क्रमांक
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
-            ctx.font = "bold 28px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText("सदस्य क्रमांक : " + memberId, 500, 1235);
+            ctx.font = "bold 26px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("सदस्य क्रमांक : " + memberId, 520, 1150);
 
             // ५. उजव्या बाजूचा QR कोड
-            const qrX = 840;
-            const qrY = 1110;
-            const qrSize = 150;
+            const qrX = 730;
+            const qrY = 1055;
+            const qrSize = 125;
 
-            if (qrImageObj) {
+            if (qrImageObj && qrImageObj.complete) {
                 ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
             }
         }
