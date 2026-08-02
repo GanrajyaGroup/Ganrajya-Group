@@ -8,8 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Cropper.js CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <!-- QR Code JS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
@@ -29,12 +27,6 @@
             border-radius: 12px;
             box-shadow: 0 12px 35px rgba(0,0,0,0.18);
             background-color: #ffffff;
-        }
-        .crop-container {
-            max-height: 350px;
-            background-color: #222;
-            border-radius: 8px;
-            overflow: hidden;
         }
         .social-btn {
             border-radius: 8px;
@@ -120,39 +112,16 @@
         </div>
     </div>
 
-    <!-- फोटो क्रॉपर मॉडेल -->
-    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">फोटो गोल आकारात क्रॉप करा</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="crop-container">
-                        <img id="imageToCrop" src="" style="max-width: 100%; display: block;">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करा</button>
-                    <button type="button" class="btn btn-primary" onclick="cropAndApply()">क्रॉप करा व जोडा</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div id="qrcode" style="display:none;"></div>
 
     <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
     <!-- Custom Script -->
     <script>
         const canvas = document.getElementById('bannerCanvas');
         const ctx = canvas.getContext('2d');
-        let cropper = null;
-        let croppedImageObj = null;
+        let userPhotoObj = null;
         let qrImageObj = null;
 
         const bgImage = new Image();
@@ -187,60 +156,21 @@
             }
         }
 
-        // फोटो सिलेक्ट केल्यावर क्रॉपर चालू करण्यासाठी फिक्स केलेला कोड
+        // फोटो सिलेक्ट होताच थेट कॅनव्हासवर दिसेल (कोणताही अडथळा नाही)
         document.getElementById('userPhotoInput').addEventListener('change', function(e) {
             const files = e.target.files;
             if (files && files.length > 0) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    const img = document.getElementById('imageToCrop');
-                    img.src = event.target.result;
-                    
-                    const cropModalElement = document.getElementById('cropModal');
-                    const cropModal = new bootstrap.Modal(cropModalElement);
-                    cropModal.show();
-
-                    cropModalElement.addEventListener('shown.bs.modal', function () {
-                        if (cropper) {
-                            cropper.destroy();
-                        }
-                        cropper = new Cropper(img, {
-                            aspectRatio: 1,
-                            viewMode: 1,
-                            autoCropArea: 0.9,
-                            responsive: true,
-                            restore: false
-                        });
-                    }, { once: true });
+                    userPhotoObj = new Image();
+                    userPhotoObj.onload = function() {
+                        generateBanner(); // फोटो लोड होताच बॅनर पुन्हा जनरेट होईल
+                    };
+                    userPhotoObj.src = event.target.result;
                 };
                 reader.readAsDataURL(files[0]);
             }
         });
-
-        // फोटो क्रॉप करून कॅनव्हासवर दाखवण्यासाठी कोड
-        function cropAndApply() {
-            if (cropper) {
-                const canvasData = cropper.getCroppedCanvas({
-                    width: 400,
-                    height: 400,
-                    fillColor: '#fff'
-                });
-
-                if (canvasData) {
-                    croppedImageObj = new Image();
-                    croppedImageObj.onload = function() {
-                        generateBanner();
-                    };
-                    croppedImageObj.src = canvasData.toDataURL('image/png');
-                }
-
-                const cropModalElement = document.getElementById('cropModal');
-                const modalInstance = bootstrap.Modal.getInstance(cropModalElement);
-                if (modalInstance) {
-                    modalInstance.hide();
-                }
-            }
-        }
 
         function generateBanner() {
             const width = canvas.width;
@@ -251,7 +181,7 @@
 
             ctx.clearRect(0, 0, width, height);
 
-            // १. बॅकग्राउंड इमेज ड्रॉ करा
+            // १. बॅकग्राउंड इमेज
             if (bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, width, height);
             } else {
@@ -259,29 +189,38 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. डाव्या बाजूचा वर्तुळाकार फोटो (इमेजच्या चौकटीनुसार)
-            const photoX = 205;
-            const photoY = 1205;
-            const photoRadius = 105;
+            // २. गोल वर्तुळात अचूक फोटो (X: 190, Y: 1220, Radius: 98)
+            const photoX = 190;
+            const photoY = 1220;
+            const photoRadius = 98;
 
-            if (croppedImageObj) {
+            if (userPhotoObj) {
                 ctx.save();
                 ctx.beginPath();
                 ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
                 ctx.closePath();
                 ctx.clip();
 
-                ctx.drawImage(croppedImageObj, photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
+                // फोटो स्क्वेअर क्रॉप करून वर्तुळात बसवणे
+                const minSize = Math.min(userPhotoObj.width, userPhotoObj.height);
+                const sx = (userPhotoObj.width - minSize) / 2;
+                const sy = (userPhotoObj.height - minSize) / 2;
+
+                ctx.drawImage(
+                    userPhotoObj,
+                    sx, sy, minSize, minSize,
+                    photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2
+                );
                 ctx.restore();
             }
 
-            // ३. मध्यभागी नाव (रेषेच्या अगदी वर)
+            // ३. मध्यभागी नाव
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
             ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
             ctx.fillText(name, 510, 1180);
 
-            // ४. सदस्य क्रमांक (रेषेच्या खाली)
+            // ४. सदस्य क्रमांक
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
             ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
