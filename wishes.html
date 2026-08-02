@@ -188,10 +188,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. गोल वर्तुळात अचूक फोटो (तंतोतंत सेंटर अलाइनमेंट)
-            const photoX = 528;
-            const photoY = 1118;
-            const photoRadius = 88;
+            // २. डाव्या बाजूच्या गोल चौकटीत अचूक फोटो
+            const photoX = 228;
+            const photoY = 1110;
+            const photoRadius = 115;
 
             if (userPhotoObj) {
                 ctx.save();
@@ -212,21 +212,21 @@
                 ctx.restore();
             }
 
-            // ३. नाव
+            // ३. मध्यभागी नाव
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
             ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 510, 1180);
+            ctx.fillText(name, 510, 1080);
 
             // ४. सदस्य क्रमांक
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
             ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText("सदस्य क्रमांक : " + memberId, 510, 1245);
+            ctx.fillText("सदस्य क्रमांक : " + memberId, 510, 1145);
 
             // ५. उजव्या बाजूचा QR कोड
             const qrX = 844;
-            const qrY = 1140;
+            const qrY = 1040;
             const qrSize = 140;
 
             if (qrImageObj) {
