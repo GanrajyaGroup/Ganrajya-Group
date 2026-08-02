@@ -1,116 +1,367 @@
-// बॅकग्राउंड टेम्पलेट इमेज लोड करा
-const bgImage = new Image();
-bgImage.src = 'background.jpg'; // मूळ डिझाइनची इमेज फाइल्स फोल्डरमध्ये ठेवा
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्वातंत्र्यदिन शुभेच्छा बॅनर मेकर | गणराज्य समूह</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Cropper.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- QR Code JS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            background: #ffffff;
+        }
+        #bannerCanvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+            background-color: #ffffff;
+        }
+        .crop-container {
+            max-height: 350px;
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .social-btn {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
 
-function generateBanner() {
-    const width = canvas.width;  // 1080px
-    const height = canvas.height; // 1600px
-    const name = document.getElementById('userName').value.trim() || "श्री. राहुल पाटील";
-    const memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
+    <!-- नेव्हिगेशन बार -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="index.html">
+                <i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="wishes.html">विशेष शुभेच्छा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    ctx.clearRect(0, 0, width, height);
+    <!-- मुख्य कंटेंट -->
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">
+                <i class="fa-solid fa-flag text-danger me-2"></i>स्वातंत्र्यदिन शुभेच्छा बॅनर मेकर
+            </h2>
+            <p class="text-muted mb-0">तुमची माहिती भरून HD क्वालिटीमध्ये ऑफिशियल शुभेच्छा कार्ड डाऊनलोड करा!</p>
+        </div>
 
-    // १. मूळ सुंदर ३D डिझाइन बॅकग्राउंड म्हणून ड्रॉ करा
-    if (bgImage.complete && bgImage.naturalWidth !== 0) {
-        ctx.drawImage(bgImage, 0, 0, width, 1200); // वरचा डिझाईन भाग
-    }
+        <div class="row g-4">
+            <!-- इनपुट फॉर्म -->
+            <div class="col-lg-5">
+                <div class="card card-custom p-4">
+                    <h5 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-user-pen me-2"></i>वैयक्तिक माहिती</h5>
 
-    // २. खालील युझर इन्फो कार्ड (White Frame)
-    const cardX = 40;
-    const cardY = 1220;
-    const cardWidth = width - 80;
-    const cardHeight = 260;
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">१. तुमचे नाव:</label>
+                        <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" value="श्री. राहुल पाटील" oninput="generateBanner()">
+                    </div>
 
-    ctx.fillStyle = "#FFFFFF";
-    ctx.roundRect(cardX, cardY, cardWidth, cardHeight, 25);
-    ctx.fill();
-    ctx.strokeStyle = "#D97706";
-    ctx.lineWidth = 3;
-    ctx.stroke();
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">२. सदस्य क्रमांक (Member ID):</label>
+                        <input type="text" id="memberId" class="form-control" placeholder="उदा. GGS-0125" value="GGS-0125" oninput="generateBanner()">
+                    </div>
 
-    // ३. युझरचा फोटो (Profile Picture)
-    const photoX = cardX + 130;
-    const photoY = cardY + 130;
-    const photoRadius = 90;
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">३. तुमचा फोटो निवडा:</label>
+                        <input type="file" id="userPhotoInput" class="form-control" accept="image/*">
+                    </div>
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.clip();
+                    <hr class="my-4">
 
-    if (croppedImageObj) {
-        ctx.drawImage(croppedImageObj, photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
-    } else {
-        ctx.fillStyle = "#E2E8F0";
-        ctx.fillRect(photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
-        ctx.fillStyle = "#64748B";
-        ctx.font = "bold 24px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("फोटो", photoX, photoY + 8);
-    }
-    ctx.restore();
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success btn-lg fw-bold" onclick="downloadBanner()">
+                            <i class="fa-solid fa-download me-2"></i>बॅनर डाऊनलोड करा
+                        </button>
+                        <button class="btn btn-primary fw-bold" onclick="shareBanner()">
+                            <i class="fa-solid fa-share-nodes me-2"></i>थेट शेअर करा
+                        </button>
+                    </div>
 
-    // फोटोची बॉर्डर
-    ctx.beginPath();
-    ctx.arc(photoX, photoY, photoRadius + 3, 0, Math.PI * 2, true);
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "#FF6600";
-    ctx.stroke();
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-sm btn-outline-success social-btn w-48" onclick="shareToWhatsApp()"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</button>
+                        <button class="btn btn-sm btn-outline-info social-btn w-48" onclick="shareToTelegram()"><i class="fa-brands fa-telegram me-1"></i> Telegram</button>
+                    </div>
+                </div>
+            </div>
 
-    // ४. नाव आणि सदस्य क्रमांक
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#701A75";
-    ctx.font = "bold 46px Arial, sans-serif";
-    ctx.fillText(name, cardX + 260, cardY + 110);
+            <!-- प्रिव्ह्यू कॅनव्हास -->
+            <div class="col-lg-7 text-center">
+                <div class="card card-custom p-3">
+                    <h5 class="text-secondary fw-bold mb-3"><i class="fa-solid fa-eye me-2"></i>HD Live Banner Preview</h5>
+                    <div class="d-flex justify-content-center align-items-center" style="background: #eef2f5; border-radius: 12px; padding: 15px;">
+                        <canvas id="bannerCanvas" width="1080" height="1600"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    ctx.fillStyle = "#0F172A";
-    ctx.font = "bold 30px Arial, sans-serif";
-    ctx.fillText("सदस्य क्रमांक : ", cardX + 260, cardY + 175);
+    <!-- फोटो क्रॉपर मॉडेल -->
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">फोटो गोल आकारात क्रॉप करा</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="crop-container">
+                        <img id="imageToCrop" src="" style="max-width: 100%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करा</button>
+                    <button type="button" class="btn btn-primary" onclick="cropAndApply()">क्रॉप करा व जोडा</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    ctx.fillStyle = "#DC2626";
-    ctx.font = "bold 32px Arial, sans-serif";
-    ctx.fillText(memberId, cardX + 460, cardY + 175);
+    <div id="qrcode" style="display:none;"></div>
 
-    // ५. QR कोड
-    if (qrImageObj) {
-        const qrX = cardX + cardWidth - 160;
-        const qrY = cardY + 30;
-        ctx.drawImage(qrImageObj, qrX, qrY, 120, 120);
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#0B8800";
-        ctx.font = "bold 18px Arial, sans-serif";
-        ctx.fillText("Scan & Join", qrX + 60, qrY + 145);
+    <!-- Custom Script -->
+    <script>
+        const canvas = document.getElementById('bannerCanvas');
+        const ctx = canvas.getContext('2d');
+        let cropper = null;
+        let croppedImageObj = null;
+        let qrImageObj = null;
 
-        ctx.fillStyle = "#475569";
-        ctx.font = "14px Arial, sans-serif";
-        ctx.fillText("ganrajyagroup.github.io", qrX + 60, qrY + 168);
-    }
+        // बॅकग्राउंड इमेज
+        const bgImage = new Image();
+        bgImage.src = 'background.jpg';
 
-    // ६. तळाशी ब्रँडिंग बार (Deep Green Footer)
-    const footerY = height - 100;
-    ctx.fillStyle = "#043927";
-    ctx.fillRect(0, footerY, width, 65);
+        window.addEventListener('load', function() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "https://ganrajyagroup.github.io/Ganrajya-Group/",
+                width: 150,
+                height: 150
+            });
+            setTimeout(loadQRCodeImage, 500);
+        });
 
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "bold 22px Arial, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText("👥 गणराज्य स्वयंसहाय्यता समूह", 30, footerY + 40);
+        function loadQRCodeImage() {
+            const qrImgElement = document.querySelector("#qrcode img");
+            if(qrImgElement && qrImgElement.src) {
+                qrImageObj = new Image();
+                qrImageObj.onload = generateBanner;
+                qrImageObj.src = qrImgElement.src;
+            } else {
+                generateBanner();
+            }
+        }
 
-    ctx.font = "20px Arial, sans-serif";
-    ctx.fillText("📞 93214 30535", 420, footerY + 40);
-    ctx.fillText("✉️ ganrajyagroup1@gmail.com", 620, footerY + 40);
+        document.getElementById('userPhotoInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files && files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.getElementById('imageToCrop');
+                    img.src = event.target.result;
+                    
+                    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
+                    cropModal.show();
 
-    // ७. टॅगलाईन
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, height - 35, width, 35);
+                    document.getElementById('cropModal').addEventListener('shown.bs.modal', function () {
+                        if (cropper) cropper.destroy();
+                        cropper = new Cropper(img, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 0.8
+                        });
+                    }, { once: true });
+                };
+                reader.readAsDataURL(files[0]);
+            }
+        });
 
-    ctx.fillStyle = "#DC2626";
-    ctx.font = "bold 20px Arial, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("★   राष्ट्र प्रथम   ★   समाज सेवा   ★   स्वावलंबन   ★", width / 2, height - 10);
-}
+        function cropAndApply() {
+            if (cropper) {
+                const canvasData = cropper.getCroppedCanvas({ width: 400, height: 400 });
+                croppedImageObj = new Image();
+                croppedImageObj.onload = generateBanner;
+                croppedImageObj.src = canvasData.toDataURL();
 
-// इमेज लोड झाल्यावर कॅनव्हास रिफ्रेश करा
-bgImage.onload = generateBanner;
+                bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
+            }
+        }
+
+        function generateBanner() {
+            const width = canvas.width;  // 1080px
+            const height = canvas.height; // 1600px
+            const name = document.getElementById('userName').value.trim() || "श्री. राहुल पाटील";
+            const memberId = document.getElementById('memberId').value.trim() || "GGS-0125";
+
+            ctx.clearRect(0, 0, width, height);
+
+            // १. मूळ बॅकग्राउंड इमेज ड्रॉ करा
+            if (bgImage.complete && bgImage.naturalWidth !== 0) {
+                ctx.drawImage(bgImage, 0, 0, width, 1200);
+            }
+
+            // २. खालील युझर इन्फो कार्ड
+            const cardX = 40;
+            const cardY = 1220;
+            const cardWidth = width - 80;
+            const cardHeight = 260;
+
+            ctx.fillStyle = "#FFFFFF";
+            ctx.roundRect(cardX, cardY, cardWidth, cardHeight, 25);
+            ctx.fill();
+            ctx.strokeStyle = "#D97706";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // ३. युझरचा वर्तुळाकार फोटो
+            const photoX = cardX + 130;
+            const photoY = cardY + 130;
+            const photoRadius = 90;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.clip();
+
+            if (croppedImageObj) {
+                ctx.drawImage(croppedImageObj, photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
+            } else {
+                ctx.fillStyle = "#E2E8F0";
+                ctx.fillRect(photoX - photoRadius, photoY - photoRadius, photoRadius * 2, photoRadius * 2);
+                ctx.fillStyle = "#64748B";
+                ctx.font = "bold 24px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("फोटो", photoX, photoY + 8);
+            }
+            ctx.restore();
+
+            // फोटोची बॉर्डर
+            ctx.beginPath();
+            ctx.arc(photoX, photoY, photoRadius + 3, 0, Math.PI * 2, true);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "#FF6600";
+            ctx.stroke();
+
+            // ४. नाव आणि सदस्य क्रमांक
+            ctx.textAlign = "left";
+            ctx.fillStyle = "#701A75";
+            ctx.font = "bold 46px Arial, sans-serif";
+            ctx.fillText(name, cardX + 260, cardY + 110);
+
+            ctx.fillStyle = "#0F172A";
+            ctx.font = "bold 30px Arial, sans-serif";
+            ctx.fillText("सदस्य क्रमांक : ", cardX + 260, cardY + 175);
+
+            ctx.fillStyle = "#DC2626";
+            ctx.font = "bold 32px Arial, sans-serif";
+            ctx.fillText(memberId, cardX + 460, cardY + 175);
+
+            // ५. QR कोड
+            if (qrImageObj) {
+                const qrX = cardX + cardWidth - 160;
+                const qrY = cardY + 30;
+                ctx.drawImage(qrImageObj, qrX, qrY, 120, 120);
+
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#0B8800";
+                ctx.font = "bold 18px Arial, sans-serif";
+                ctx.fillText("Scan & Join", qrX + 60, qrY + 145);
+
+                ctx.fillStyle = "#475569";
+                ctx.font = "14px Arial, sans-serif";
+                ctx.fillText("ganrajyagroup.github.io", qrX + 60, qrY + 168);
+            }
+
+            // ६. तळाशी ब्रँडिंग बार
+            const footerY = height - 100;
+            ctx.fillStyle = "#043927";
+            ctx.fillRect(0, footerY, width, 65);
+
+            ctx.fillStyle = "#FFFFFF";
+            ctx.font = "bold 22px Arial, sans-serif";
+            ctx.textAlign = "left";
+            ctx.fillText("👥 गणराज्य स्वयंसहाय्यता समूह", 30, footerY + 40);
+
+            ctx.font = "20px Arial, sans-serif";
+            ctx.fillText("📞 93214 30535", 420, footerY + 40);
+            ctx.fillText("✉️ ganrajyagroup1@gmail.com", 620, footerY + 40);
+
+            // ७. टॅगलाईन
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, height - 35, width, 35);
+
+            ctx.fillStyle = "#DC2626";
+            ctx.font = "bold 20px Arial, sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("★   राष्ट्र प्रथम   ★   समाज सेवा   ★   स्वावलंबन   ★", width / 2, height - 10);
+        }
+
+        bgImage.onload = generateBanner;
+
+        function downloadBanner() {
+            const link = document.createElement('a');
+            link.download = 'Ganrajya_Independence_Day_Wish.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        async function shareBanner() {
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'Independence_Day_Wish.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: 'स्वातंत्र्यदिन शुभेच्छा बॅनर',
+                            text: 'गणराज्य स्वयंसहाय्यता समूहाच्या वतीने स्वातंत्र्य दिनाच्या हार्दिक शुभेच्छा!'
+                        });
+                    } catch (err) {
+                        console.log("Share canceled", err);
+                    }
+                } else {
+                    alert("बॅनर डाऊनलोड करून शेअर करा!");
+                }
+            });
+        }
+
+        function shareToWhatsApp() {
+            const text = encodeURIComponent("गणराज्य स्वयंसहाय्यता समूहाचे स्वातंत्र्य दिन शुभेच्छा बॅनर बनवा: https://ganrajyagroup.github.io/Ganrajya-Group/");
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function shareToTelegram() {
+            const text = encodeURIComponent("गणराज्य स्वयंसहाय्यता समूह शुभेच्छा बॅनर");
+            const url = encodeURIComponent("https://ganrajyagroup.github.io/Ganrajya-Group/");
+            window.open(`https://telegram.me/share/url?url=${url}&text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
