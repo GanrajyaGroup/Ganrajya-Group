@@ -156,7 +156,6 @@
             }
         }
 
-        // फोटो सिलेक्ट होताच थेट कॅनव्हासवर दिसेल (कोणताही अडथळा नाही)
         document.getElementById('userPhotoInput').addEventListener('change', function(e) {
             const files = e.target.files;
             if (files && files.length > 0) {
@@ -164,7 +163,7 @@
                 reader.onload = function(event) {
                     userPhotoObj = new Image();
                     userPhotoObj.onload = function() {
-                        generateBanner(); // फोटो लोड होताच बॅनर पुन्हा जनरेट होईल
+                        generateBanner();
                     };
                     userPhotoObj.src = event.target.result;
                 };
@@ -189,10 +188,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. गोल वर्तुळात अचूक फोटो (X: 190, Y: 1220, Radius: 98)
-            const photoX = 190;
-            const photoY = 1220;
-            const photoRadius = 98;
+            // २. गोल वर्तुळात अचूक फोटो (तंतोतंत सेंटर अलाइनमेंट)
+            const photoX = 528;
+            const photoY = 1118;
+            const photoRadius = 88;
 
             if (userPhotoObj) {
                 ctx.save();
@@ -201,7 +200,6 @@
                 ctx.closePath();
                 ctx.clip();
 
-                // फोटो स्क्वेअर क्रॉप करून वर्तुळात बसवणे
                 const minSize = Math.min(userPhotoObj.width, userPhotoObj.height);
                 const sx = (userPhotoObj.width - minSize) / 2;
                 const sy = (userPhotoObj.height - minSize) / 2;
@@ -214,7 +212,7 @@
                 ctx.restore();
             }
 
-            // ३. मध्यभागी नाव
+            // ३. नाव
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
             ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
