@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सदस्य लॉगिन | गणराज्य समूह</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-light">
+
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="index.html"><i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">सदस्य नोंदणी</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज अर्ज</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="login.html">लॉगिन</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">विशेष शुभेच्छा</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4 shadow-sm border-0">
+                    <h3 class="text-center mb-4 text-primary fw-bold">सदस्य लॉगिन</h3>
+                    <form onsubmit="alert('लॉगिन यशस्वी!'); return false;">
+                        <div class="mb-3">
+                            <label class="form-label">मोबाईल नंबर / सदस्य ID</label>
+                            <input type="text" class="form-control" required placeholder="तुमचा आयडी टाका">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">पासवर्ड</label>
+                            <input type="password" class="form-control" required placeholder="पासवर्ड टाका">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">लॉगिन करा</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+</body>
+</html>
