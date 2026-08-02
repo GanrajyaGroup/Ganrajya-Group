@@ -180,7 +180,7 @@
         }
 
         // फोटो इनपुट हँडलर (थेट आणि क्रॉप दोन्ही सपोर्ट)
-       function generateBanner() {
+      function generateBanner() {
             const width = canvas.width;
             const height = canvas.height;
             const name = document.getElementById('userName').value.trim() || "श्री. राहुल पाटील";
@@ -188,16 +188,24 @@
 
             ctx.clearRect(0, 0, width, height);
 
-            // १. बॅकग्राउंड इमेज
+            // १. मूळ बॅकग्राउंड इमेज ड्रा करा
             if (bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, width, height);
             }
 
-            // २. फोटो पोझिशनिंग (178, 1340)
+            // २. 'फोटो' नावाचे जुने टेक्स्ट आणि गोल झाकण्यासाठी पांढरा वर्तुळाकार पॅच (Clean Box)
             const photoX = 178;
             const photoY = 1340;
             const photoRadius = 100;
 
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(photoX, photoY, photoRadius, 0, Math.PI * 2, true);
+            ctx.fillStyle = "#E2E8F0"; // प्लेन पांढरा/राखाडी बॅकग्राउंड
+            ctx.fill();
+            ctx.restore();
+
+            // युझरने अपलोड केलेला फोटो वर्तुळात बसवणे
             if (croppedImageObj) {
                 ctx.save();
                 ctx.beginPath();
@@ -209,16 +217,29 @@
                 ctx.restore();
             }
 
-            // ३. नाव (रेषेच्या वर)
+            // ३. नाव (अचूक रेषेच्या वर मोकळ्या जागेत बसेल - Y: 1285)
             ctx.textAlign = "left";
             ctx.fillStyle = "#0F172A";
             ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 340, 1290);
+            ctx.fillText(name, 320, 1285);
 
-            // ४. फक्त ID नंबर (डबल मजकूर टाळण्यासाठी)
+            // ४. सदस्य क्रमांक (जिथे 'सदस्य क्रमांक :' छापले आहे त्याच्या पुढे अचूक बसेल)
             ctx.fillStyle = "#DC2626";
             ctx.font = "bold 34px 'Segoe UI', Arial, sans-serif";
             ctx.fillText(memberId, 560, 1362);
+
+            // ५. QR कोड पॅच आणि नवीन डायनॅमिक QR कोड
+            const qrX = 840;
+            const qrY = 1235;
+            const qrSize = 120;
+
+            if (qrImageObj) {
+                // जुना QR पुसून त्यावर नवीन स्वच्छ QR ओव्हरले करणे
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(qrX - 5, qrY - 5, qrSize + 10, qrSize + 10);
+                ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
+            }
+        }
 
             // ५. QR कोड
             if (qrImageObj) {
