@@ -188,10 +188,10 @@
                 ctx.fillRect(0, 0, width, height);
             }
 
-            // २. डाव्या बाजूच्या गोल वर्तुळात तंतोतंत फोटो सेट करणे
-            const photoX = 528;      // केशरी वर्तुळाचा X केंद्रबिंदू
-            const photoY = 1220;     // केशरी वर्तुळाचा Y केंद्रबिंदू
-            const photoRadius = 95;  // वर्तुळाच्या आत बसण्यासाठी त्रिज्या
+            // २. डाव्या बाजूच्या गोल वर्तुळात अचूक फोटो
+            const photoX = 228;
+            const photoY = 1110;
+            const photoRadius = 100;
 
             if (userPhotoObj) {
                 ctx.save();
@@ -212,22 +212,22 @@
                 ctx.restore();
             }
 
-            // ३. मध्यभागी नाव (डी. एम. गायकवाड)
+            // ३. नाव (मध्यभागी)
             ctx.textAlign = "center";
             ctx.fillStyle = "#0F172A";
-            ctx.font = "bold 44px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText(name, 630, 1200);
+            ctx.font = "bold 42px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText(name, 590, 1080);
 
-            // ४. सदस्य क्रमांक
+            // ४. सदस्य क्रमांक (मध्यभागी)
             ctx.textAlign = "center";
             ctx.fillStyle = "#DC2626";
-            ctx.font = "bold 32px 'Segoe UI', Arial, sans-serif";
-            ctx.fillText("सदस्य क्रमांक : " + memberId, 630, 1260);
+            ctx.font = "bold 30px 'Segoe UI', Arial, sans-serif";
+            ctx.fillText("सदस्य क्रमांक : " + memberId, 590, 1140);
 
             // ५. उजव्या बाजूचा QR कोड
             const qrX = 844;
-            const qrY = 1140;
-            const qrSize = 140;
+            const qrY = 1040;
+            const qrSize = 130;
 
             if (qrImageObj) {
                 ctx.drawImage(qrImageObj, qrX, qrY, qrSize, qrSize);
