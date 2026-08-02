@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>विशेष सण शुभेच्छा बॅनर | गणराज्य ग्रुप</title>
+    <title>विशेष शुभेच्छा बॅनर | गणराज्य समूह</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -12,9 +12,6 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7fe;
-        }
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .card-custom {
             border: none;
@@ -44,52 +41,58 @@
 </head>
 <body>
 
-    <!-- १. नेव्हिगेशन बार -->
+    <!-- नेव्हिगेशन बार -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4" href="index.html">
                 <i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप
             </a>
-            <a href="index.html" class="btn btn-outline-light btn-sm">
-                <i class="fa-solid fa-arrow-left me-1"></i> मुख्यपृष्ठावर जा
-            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">सदस्य नोंदणी</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज अर्ज</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">लॉगिन</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="wishes.html">विशेष शुभेच्छा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- २. मुख्य विभाग (Banner Generator) -->
+    <!-- मुख्य कंटेंट -->
     <div class="container py-5">
         <div class="text-center mb-4">
             <h2 class="fw-bold text-primary">
-                <i class="fa-solid fa-flag text-danger me-2"></i>डिजिटल शुभेच्छा बॅनर मेकर
+                <i class="fa-solid fa-flag text-danger me-2"></i>स्वातंत्र्य दिन विशेष शुभेच्छा बॅनर
             </h2>
-            <p class="text-muted">तुमचे नाव आणि फोटो टाकून गणराज्य ग्रुपचे सुंदर शुभेच्छा बॅनर तयार करा व डाऊनलोड करा!</p>
+            <p class="text-muted">तुमचे नाव आणि फोटो टाकून गणराज्य ग्रुपचे अधिकृत शुभेच्छा कार्ड तयार करा व डाऊनलोड करा!</p>
         </div>
 
         <div class="row justify-content-center g-4">
-            <!-- डावी बाजू: इनपुट फॉर्म -->
+            <!-- इनपुट फॉर्म -->
             <div class="col-lg-5">
                 <div class="card card-custom p-4">
-                    <h4 class="mb-3 text-secondary"><i class="fa-solid fa-pen-to-square me-2"></i>माहिती भरा</h4>
-                    
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">१. सण/प्रसंग निवडा:</label>
-                        <select id="eventSelect" class="form-select" onchange="generateBanner()">
-                            <option value="15aug">१५ ऑगस्ट - स्वातंत्र्य दिन</option>
-                            <option value="26jan">२६ जानेवारी - प्रजासत्ताक दिन</option>
-                        </select>
-                    </div>
+                    <h4 class="mb-3 text-secondary"><i class="fa-solid fa-pen-to-square me-2"></i>आपली माहिती भरा</h4>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">२. तुमचे नाव टाका:</label>
+                        <label class="form-label fw-bold">१. तुमचे नाव टाका:</label>
                         <input type="text" id="userName" class="form-control" placeholder="उदा. श्री. राहुल पाटील" oninput="generateBanner()">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">३. तुमचा फोटो निवडा:</label>
+                        <label class="form-label fw-bold">२. तुमचा फोटो निवडा:</label>
                         <input type="file" id="userPhoto" class="form-control" accept="image/*" onchange="generateBanner()">
                     </div>
 
-                    <div class="d-grid mt-4">
+                    <div class="p-3 bg-light rounded mb-3">
+                        <h6 class="fw-bold mb-1 text-primary"><i class="fa-solid fa-address-card me-1"></i> बॅनरवर प्रिंट होणारा संपर्क:</h6>
+                        <small class="text-muted d-block">गणराज्य स्वयंसहाय्यता समूह</small>
+                        <small class="text-muted d-block">मोबाईल: +91 93214 30535</small>
+                        <small class="text-muted d-block">ईमेल: ganrajyagroup1@gmail.com | मुंबई</small>
+                    </div>
+
+                    <div class="d-grid mt-2">
                         <button class="btn btn-download btn-lg" onclick="downloadBanner()">
                             <i class="fa-solid fa-download me-2"></i>बॅनर डाऊनलोड करा
                         </button>
@@ -97,23 +100,21 @@
                 </div>
             </div>
 
-            <!-- उजवी बाजू: थेट प्रिव्ह्यू (Live Canvas) -->
+            <!-- प्रिव्ह्यू (Live Canvas) -->
             <div class="col-lg-6 text-center">
                 <div class="card card-custom p-3">
                     <h5 class="text-muted mb-3"><i class="fa-solid fa-eye me-2"></i>बॅनर प्रिव्ह्यू</h5>
                     <div class="d-flex justify-content-center">
-                        <canvas id="bannerCanvas" width="600" height="600"></canvas>
+                        <canvas id="bannerCanvas" width="600" height="750"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript जनरेटर -->
     <script>
         let loadedImage = null;
 
-        // फोटो अपलोड झाल्यावर स्टोअर करणे
         document.getElementById('userPhoto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -133,92 +134,88 @@
             const canvas = document.getElementById('bannerCanvas');
             const ctx = canvas.getContext('2d');
             const name = document.getElementById('userName').value.trim() || "तुमचे नाव";
-            const eventType = document.getElementById('eventSelect').value;
 
-            // कॅनव्हास रिसेट करणे
-            ctx.clearRect(0, 0, 600, 600);
+            ctx.clearRect(0, 0, 600, 750);
 
-            // १. बॅकग्राउंड कलर डिझाइन (तिरंगा)
+            // १. पार्श्वभूमी (Background - तिरंगा थीम)
             ctx.fillStyle = "#FF9933"; // केसरिया
             ctx.fillRect(0, 0, 600, 200);
-            
             ctx.fillStyle = "#FFFFFF"; // पांढरा
-            ctx.fillRect(0, 200, 600, 200);
-            
+            ctx.fillRect(0, 200, 600, 250);
             ctx.fillStyle = "#128807"; // हिरवा
-            ctx.fillRect(0, 400, 600, 200);
+            ctx.fillRect(0, 450, 600, 150);
 
-            // २. बॉर्डर
-            ctx.strokeStyle = "#0d6efd";
-            ctx.lineWidth = 10;
-            ctx.strokeRect(0, 0, 600, 600);
-
-            // ३. शीर्षक व शुभेच्छा मजकूर
-            ctx.fillStyle = "#000080"; // अशोक चक्र निळा
-            ctx.font = "bold 34px Arial, sans-serif";
+            // २. शीर्षक मजकूर (स्वातंत्र्य दिन शुभेच्छा)
+            ctx.fillStyle = "#000080";
+            ctx.font = "bold 32px Arial, sans-serif";
             ctx.textAlign = "center";
+            ctx.fillText("भारतीय स्वातंत्र्य दिनाच्या", 300, 70);
+            ctx.fillText("हार्दिक शुभेच्छा!", 300, 115);
 
-            if (eventType === "15aug") {
-                ctx.fillText("भारतीय स्वातंत्र्य दिनाच्या", 300, 75);
-                ctx.fillText("हार्दिक शुभेच्छा!", 300, 125);
-            } else if (eventType === "26jan") {
-                ctx.fillText("प्रजासत्ताक दिनाच्या", 300, 75);
-                ctx.fillText("हार्दिक शुभेच्छा!", 300, 125);
-            }
-
-            // समूहाचे नाव
             ctx.fillStyle = "#212529";
-            ctx.font = "bold 22px Arial, sans-serif";
-            ctx.fillText("शुभेच्छुक: गणराज्य स्वयंसहाय्यता समूह", 300, 180);
+            ctx.font = "bold 20px Arial, sans-serif";
+            ctx.fillText("देश विविध रंगांचा, देश विविध ढंगांचा!", 300, 175);
 
-            // ४. सदस्याचा फोटो (गोल फ्रेममध्ये)
+            // ३. सदस्याचा फोटो (गोल फ्रेम)
             ctx.save();
             ctx.beginPath();
-            ctx.arc(300, 330, 100, 0, Math.PI * 2, true);
+            ctx.arc(300, 310, 95, 0, Math.PI * 2, true);
             ctx.closePath();
             ctx.clip();
 
             if (loadedImage) {
-                // युजरने दिलेला फोटो
-                ctx.drawImage(loadedImage, 200, 230, 200, 200);
+                ctx.drawImage(loadedImage, 205, 215, 190, 190);
             } else {
-                // डिफॉल्ट प्लेसहोल्डर बॅकग्राउंड
                 ctx.fillStyle = "#e9ecef";
-                ctx.fillRect(200, 230, 200, 200);
+                ctx.fillRect(205, 215, 190, 190);
                 ctx.fillStyle = "#6c757d";
-                ctx.font = "18px Arial";
-                ctx.fillText("फोटो अपलोड करा", 300, 335);
+                ctx.font = "16px Arial";
+                ctx.fillText("फोटो निवडा", 300, 315);
             }
             ctx.restore();
 
-            // फोटोची वर्तुळाकार बॉर्डर
+            // फोटोची बॉर्डर
             ctx.beginPath();
-            ctx.arc(300, 330, 100, 0, Math.PI * 2, true);
+            ctx.arc(300, 310, 95, 0, Math.PI * 2, true);
             ctx.lineWidth = 5;
             ctx.strokeStyle = "#000080";
             ctx.stroke();
 
-            // ५. सदस्याचे नाव (खालील पट्ट्यावर)
+            // ४. शुभेच्छुक सदस्याचे नाव
             ctx.fillStyle = "#ffffff";
-            ctx.fillRect(50, 480, 500, 60);
+            ctx.fillRect(50, 430, 500, 55);
+            ctx.strokeStyle = "#FF9933";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(50, 430, 500, 55);
 
             ctx.fillStyle = "#000000";
-            ctx.font = "bold 28px Arial, sans-serif";
-            ctx.fillText(name, 300, 520);
+            ctx.font = "bold 26px Arial, sans-serif";
+            ctx.fillText("शुभच्छुक: " + name, 300, 468);
+
+            // ५. इमेजच्या खाली 'गणराज्य ग्रुप' संपर्क पट्टी (Footer Contact Section)
+            ctx.fillStyle = "#111827"; // डार्क बॅकग्राउंड पट्टी
+            ctx.fillRect(0, 600, 600, 150);
+
+            // संपर्क शीर्षक
+            ctx.fillStyle = "#FF9933";
+            ctx.font = "bold 22px Arial, sans-serif";
+            ctx.fillText("गणराज्य स्वयंसहाय्यता समूह", 300, 635);
+
+            // संपर्क तपशील
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "18px Arial, sans-serif";
+            ctx.fillText("📞 संपर्क / WhatsApp: 9321430535", 300, 670);
+            ctx.fillText("✉️ ईमेल: ganrajyagroup1@gmail.com | 📍 मुंबई, महाराष्ट्र", 300, 705);
         }
 
-        // बॅनर डाऊनलोड करण्याची पद्धत
         function downloadBanner() {
             const canvas = document.getElementById('bannerCanvas');
             const link = document.createElement('a');
-            const eventType = document.getElementById('eventSelect').value;
-            
-            link.download = `Ganrajya_Group_${eventType}_Wishes.png`;
+            link.download = 'Ganrajya_Group_15Aug_Wish.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         }
 
-        // पेज लोड झाल्यावर डिफॉल्ट बॅनर दाखवणे
         window.onload = generateBanner;
     </script>
 </body>
