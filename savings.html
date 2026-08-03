@@ -16,6 +16,36 @@
 
     <!-- External Style Sheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Backup Internal CSS (लोगो स्क्रीनवर कधीही मोठा होणार नाही याची खात्री देण्यासाठी) -->
+    <style>
+        .navbar-brand {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            font-weight: 700;
+            color: #ffffff !important;
+        }
+
+        .logo-img {
+            height: 48px !important;
+            width: 48px !important;
+            max-height: 48px !important;
+            max-width: 48px !important;
+            border-radius: 50% !important;
+            border: 2px solid #E85D04 !important;
+            background: #ffffff !important;
+            object-fit: cover !important;
+            flex-shrink: 0 !important;
+            display: block !important;
+        }
+
+        .navbar-custom {
+            background-color: #0B2545;
+            box-shadow: 0 4px 15px rgba(11, 37, 69, 0.08);
+            border-bottom: 4px solid #E85D04;
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +53,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="logo.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <img src="logo.png" alt="गणराज्य लोगो" class="logo-img" style="height: 48px; width: 48px; max-height: 48px; max-width: 48px; border-radius: 50%; border: 2px solid #E85D04; object-fit: cover; flex-shrink: 0;" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
                 <span>गणराज्य स्वयं सहाय्यता समूह</span>
             </a>
 
@@ -64,7 +94,7 @@
                 <!-- Savings Features -->
                 <div class="col-lg-8">
                     <div class="custom-card card-saffron mb-4">
-                        <h3 class="fw-bold mb-3" style="color: var(--primary-navy);"><i class="fa-solid fa-piggy-bank me-2 text-warning"></i>मासिक बचत योजनेची वैशिष्ट्ये</h3>
+                        <h3 class="fw-bold mb-3" style="color: var(--primary-navy, #0B2545);"><i class="fa-solid fa-piggy-bank me-2 text-warning"></i>मासिक बचत योजनेची वैशिष्ट्ये</h3>
                         <p>गणराज्य स्वयं सहाय्यता समूहाची मासिक बचत योजना ही सर्व सदस्यांना शिस्तबद्ध बचतीची सवय लावण्यासाठी आणि आर्थिकदृष्ट्या सक्षम करण्यासाठी डिझाइन केलेली आहे.</p>
                         
                         <ul class="list-group list-group-flush mt-3">
@@ -76,7 +106,7 @@
                     </div>
 
                     <div class="custom-card card-green">
-                        <h4 class="fw-bold mb-3" style="color: var(--primary-navy);"><i class="fa-solid fa-gavel me-2 text-success"></i>बचत योजनेचे नियम व अटी</h4>
+                        <h4 class="fw-bold mb-3" style="color: var(--primary-navy, #0B2545);"><i class="fa-solid fa-gavel me-2 text-success"></i>बचत योजनेचे नियम व अटी</h4>
                         <ol class="lh-lg ps-3">
                             <li>प्रत्येक सदस्याने दरमहा निश्चित केलेली बचत रक्कम महिन्याच्या १० तारखेच्या आत जमा करणे आवश्यक आहे.</li>
                             <li>१० तारखेनंतर रक्कम जमा केल्यास समूहाच्या नियमांनुसार विलंब शुल्क (Late Fee) आकारले जाईल.</li>
@@ -89,14 +119,14 @@
                 <!-- Right Sidebar / Quick Action -->
                 <div class="col-lg-4">
                     <div class="custom-card text-center mb-4">
-                        <i class="fa-solid fa-hand-holding-hand card-icon" style="color: var(--accent-saffron);"></i>
+                        <i class="fa-solid fa-hand-holding-hand card-icon" style="color: var(--accent-saffron, #E85D04);"></i>
                         <h4 class="fw-bold">नवीन सदस्य व्हा!</h4>
                         <p class="text-muted">आजच आमच्या समूहात सहभागी व्हा आणि स्वतःच्या भविष्यासाठी बचत सुरू करा.</p>
                         <a href="register.html" class="btn btn-tiranga w-100 mt-2">अर्ज करा</a>
                     </div>
 
                     <div class="custom-card">
-                        <h5 class="fw-bold mb-3" style="color: var(--primary-navy);"><i class="fa-solid fa-circle-info text-primary me-2"></i>काही प्रश्न आहेत?</h5>
+                        <h5 class="fw-bold mb-3" style="color: var(--primary-navy, #0B2545);"><i class="fa-solid fa-circle-info text-primary me-2"></i>काही प्रश्न आहेत?</h5>
                         <p class="small text-muted">बचत योजनेसंबंधी अधिक माहितीसाठी आमच्या प्रतिनिधींशी थेट संपर्क साधा.</p>
                         <hr>
                         <p class="mb-2"><i class="fa-solid fa-phone text-primary me-2"></i> +91 93214 30535</p>
@@ -129,7 +159,7 @@
                     <h5>सोशल मीडिया</h5>
                     <div class="d-flex gap-3 fs-4">
                         <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://wa.me/919321430535" class="text-light" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                         <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
