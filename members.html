@@ -56,6 +56,7 @@
             border: 2px solid var(--saffron);
             background: #fff;
             object-fit: cover;
+            flex-shrink: 0;
         }
 
         .nav-link {
@@ -84,22 +85,27 @@
 
         /* --- PAGE HEADER --- */
         .page-header {
-            background: linear-gradient(rgba(11, 37, 69, 0.9), rgba(19, 136, 8, 0.85)), url('images/banner.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(11, 37, 69, 0.9), rgba(19, 136, 8, 0.85));
             padding: 40px 0;
             color: white;
             text-align: center;
         }
 
-        /* --- MEMBER CARDS --- */
+        /* --- MEMBER CARDS (IMAGE STABILITY FIX) --- */
         .member-card {
             background: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             border-top: 4px solid var(--saffron);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             padding: 25px 15px;
             height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* कार्ड थरथरणे रोखण्यासाठी नियम */
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .member-card:hover {
@@ -107,27 +113,34 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.12);
         }
 
+        /* चित्र स्थिर ठेवणारे कंटेनर */
         .member-img-wrapper {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 15px auto;
             border-radius: 50%;
             padding: 4px;
             background: linear-gradient(45deg, var(--saffron), var(--green));
+            flex-shrink: 0; /* साईझ बदलण्यापासून रोखते */
+            overflow: hidden;
+            position: relative;
         }
 
+        /* चित्रासाठी अचूक फिटिंग */
         .member-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: cover; /* चित्र ताणले किंवा हलू न देता वर्तुळात नीट सेट करतो */
+            object-position: center top; /* चेहऱ्याचा मुख्य भाग मध्यभागी दाखवतो */
             border: 3px solid #fff;
-            background: #fff;
+            background: #f0f0f0;
+            display: block;
         }
 
         .member-role {
             display: inline-block;
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -229,7 +242,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/dilip.jpg" alt="डी. एम. गायकवाड" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/dilip.jpg" alt="डी. एम. गायकवाड" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Dilip'">
                     </div>
                     <span class="member-role role-president"><i class="fa-solid fa-crown me-1"></i> अध्यक्ष</span>
                     <h5 class="fw-bold mb-1 text-dark">डी. एम. गायकवाड</h5>
@@ -242,7 +255,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member2.jpg" alt="सुनील शिंदे" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member2.jpg" alt="सुनील शिंदे" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Sunil'">
                     </div>
                     <span class="member-role role-secretary"><i class="fa-solid fa-user-pen me-1"></i> सचिव</span>
                     <h5 class="fw-bold mb-1 text-dark">सुनील रामचंद्र शिंदे</h5>
@@ -255,7 +268,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member3.jpg" alt="रमेश पाटील" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member3.jpg" alt="रमेश पाटील" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Ramesh'">
                     </div>
                     <span class="member-role role-treasurer"><i class="fa-solid fa-wallet me-1"></i> खजिनदार</span>
                     <h5 class="fw-bold mb-1 text-dark">रमेश सखाराम पाटील</h5>
@@ -268,7 +281,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member4.jpg" alt="अजय मोरे" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member4.jpg" alt="अजय मोरे" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Ajay'">
                     </div>
                     <span class="member-role role-member">सदस्य</span>
                     <h5 class="fw-bold mb-1 text-dark">अजय प्रकाश मोरे</h5>
@@ -281,7 +294,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member5.jpg" alt="गणेश कदम" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member5.jpg" alt="गणेश कदम" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Ganesh'">
                     </div>
                     <span class="member-role role-member">सदस्य</span>
                     <h5 class="fw-bold mb-1 text-dark">गणेश मारुती कदम</h5>
@@ -294,7 +307,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member6.jpg" alt="विजय पवार" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member6.jpg" alt="विजय पवार" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Vijay'">
                     </div>
                     <span class="member-role role-member">सदस्य</span>
                     <h5 class="fw-bold mb-1 text-dark">विजय नामदेव पवार</h5>
@@ -307,7 +320,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="member-card">
                     <div class="member-img-wrapper">
-                        <img src="images/members/member7.jpg" alt="संजय जाधव" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Member'">
+                        <img src="images/members/member7.jpg" alt="संजय जाधव" class="member-img" onerror="this.src='https://via.placeholder.com/150?text=Sanjay'">
                     </div>
                     <span class="member-role role-member">सदस्य</span>
                     <h5 class="fw-bold mb-1 text-dark">संजय बाळकृष्ण जाधव</h5>
