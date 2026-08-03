@@ -2,10 +2,11 @@
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
+    <!-- मोबाईल आणि पीसी स्क्रीन अ‍ॅडजस्टमेंटसाठी -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>गणराज्य ग्रुप - Ganrajya Group</title>
+    <title>गणराज्य स्वयं सहाय्यता समूह - मुख्य पृष्ठ</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Poppins Font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,387 +14,35 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        /* ==========================================
-           RESET & BASIC STYLES
-           ========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        :root {
-            --primary-color: #0b2545;     /* Deep Navy */
-            --secondary-color: #134074;   /* Steel Blue */
-            --accent-color: #8da9c4;      /* Soft Blue */
-            --highlight-color: #ee6c4d;   /* Coral Accent */
-            --bg-light: #f8f9fa;          /* Soft White/Grey */
-            --text-dark: #1d2d44;         /* Dark Slate */
-            --text-light: #ffffff;        /* White */
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* ==========================================
-           HEADER & NAVIGATION BAR
-           ========================================== */
-        .header {
-            background-color: var(--primary-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-        }
-
-        .logo a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            color: var(--highlight-color);
-            font-size: 1.8rem;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-link {
-            color: var(--text-light);
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background-color: var(--secondary-color);
-            color: var(--highlight-color);
-        }
-
-        .nav-btn {
-            background-color: var(--highlight-color);
-            color: var(--text-light);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-btn:hover {
-            background-color: #d95a3d;
-            transform: translateY(-2px);
-        }
-
-        /* Hamburger Toggle Button for Mobile */
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .menu-toggle .bar {
-            width: 28px;
-            height: 3px;
-            background-color: var(--text-light);
-            border-radius: 3px;
-            transition: var(--transition);
-        }
-
-        /* Animated Hamburger to X */
-        .menu-toggle.is-active .bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.is-active .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-
-        .menu-toggle.is-active .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        /* ==========================================
-           HERO SECTION
-           ========================================== */
-        .hero {
-            background: linear-gradient(rgba(11, 37, 69, 0.85), rgba(19, 64, 116, 0.85)), url('images/banner.jpg') center/cover no-repeat;
-            color: var(--text-light);
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background-color: var(--highlight-color);
-            color: var(--text-light);
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .btn-primary:hover {
-            background-color: #d95a3d;
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
-            padding: 10px 26px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--text-light);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        /* ==========================================
-           FEATURES / SERVICES SECTION
-           ========================================== */
-        .features {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: var(--highlight-color);
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary-color);
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card i {
-            font-size: 2.5rem;
-            color: var(--highlight-color);
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .card-link {
-            color: var(--secondary-color);
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .card-link:hover {
-            color: var(--highlight-color);
-        }
-
-        /* ==========================================
-           FOOTER
-           ========================================== */
-        .footer {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-        }
-
-        .footer p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* ==========================================
-           RESPONSIVE DESIGN (MEDIA QUERIES)
-           ========================================== */
-        @media screen and (max-width: 900px) {
-            .menu-toggle {
-                display: flex; /* Show Hamburger Icon */
-            }
-
-            .nav-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-color);
-                flex-direction: column;
-                align-items: center;
-                gap: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-in-out, padding 0.3s ease;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-            }
-
-            .nav-menu.active {
-                max-height: 500px; /* Expands menu smoothly */
-                padding: 20px 0;
-            }
-
-            .nav-item {
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-link {
-                display: block;
-                padding: 12px 0;
-                border-radius: 0;
-                width: 100%;
-            }
-
-            .nav-btn {
-                display: inline-block;
-                margin-top: 10px;
-                width: 80%;
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-    <!-- ================= NAVBAR SECTION ================= -->
+    <!-- ================= 1. NAVBAR SECTION ================= -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
                 <a href="index.html">
-                    <i class="fa-solid fa-hands-holding-circle"></i>
-                    <span>गणराज्य ग्रुप</span>
+                    <img src="./images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.style.display='none'">
+                    <span>गणराज्य समूह</span>
                 </a>
             </div>
 
-            <!-- Hamburger Button for Mobile -->
+            <!-- मोबाईल हॅम्बर्गर बटण (Mobile Toggle Button) -->
             <div class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
 
-            <!-- Navigation Links -->
+            <!-- नेव्हिगेशन लिंक्स -->
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="loan.html" class="nav-link">Loan</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="loan.html" class="nav-link">Loans</a></li>
                 <li class="nav-item"><a href="savings.html" class="nav-link">Savings</a></li>
+                <li class="nav-item"><a href="installments.html" class="nav-link">Installments</a></li>
                 <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 <li class="nav-item"><a href="login.html" class="nav-btn">Login</a></li>
@@ -401,11 +50,11 @@
         </nav>
     </header>
 
-    <!-- ================= HERO SECTION ================= -->
+    <!-- ================= 2. HERO SECTION ================= -->
     <section class="hero">
         <div class="hero-content">
-            <h1>गणराज्य ग्रुपमध्ये आपले स्वागत आहे</h1>
-            <p>आपल्या सर्वांगीण आर्थिक प्रगतीसाठी आणि सुरक्षित भविष्यासाठी एक विश्वासू सोबती.</p>
+            <h1>गणराज्य स्वयं सहाय्यता समूह</h1>
+            <p>एकत्र बचत, समृद्ध भविष्य! आपल्या सर्वांगीण आर्थिक प्रगतीसाठी आणि सुरक्षेसाठी एक विश्वासू सोबती.</p>
             <div class="hero-btns">
                 <a href="register.html" class="btn-primary">नवीन खाते उघडा</a>
                 <a href="loan.html" class="btn-secondary">कर्ज योजना पहा</a>
@@ -413,75 +62,55 @@
         </div>
     </section>
 
-    <!-- ================= FEATURES / SERVICES SECTION ================= -->
+    <!-- ================= 3. SERVICES / FEATURES SECTION ================= -->
     <section class="features">
         <div class="section-title">
-            <h2>आमच्या सेवा</h2>
+            <h2>आमच्या प्रमुख सेवा</h2>
         </div>
         <div class="grid-container">
-            <!-- Card 1 -->
+            <!-- Card 1: Savings -->
             <div class="card">
                 <i class="fa-solid fa-piggy-bank"></i>
-                <h3>बचत योजना (Savings)</h3>
-                <p>नियमित लहान बचतीतून मोठे उद्दिष्ट साध्य करा. आकर्षक व्याजदराचा लाभ घ्या.</p>
+                <h3>मासिक बचत योजना</h3>
+                <p>नियमित लहान बचतीतून मोठे उद्दिष्ट साध्य करा. आकर्षक व्याजदराचा आणि आर्थिक सुरक्षेचा लाभ घ्या.</p>
                 <a href="savings.html" class="card-link">अधिक माहिती <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
-            <!-- Card 2 -->
+            <!-- Card 2: Loans -->
             <div class="card">
                 <i class="fa-solid fa-hand-holding-dollar"></i>
-                <h3>कर्ज सुविधा (Loans)</h3>
-                <p>सोपे नियम, कमी कागदपत्रे आणि त्वरित कर्ज मंजुरी. तुमच्या गरजांसाठी सर्वोत्कृष्ट पर्याय.</p>
+                <h3>कमीत कमी व्याजात कर्ज</h3>
+                <p>सोपे नियम, कमी कागदपत्रे आणि त्वरित कर्ज मंजुरी. तुमच्या व्यवसायासाठी व वैयक्तिक गरजांसाठी सोयीस्कर.</p>
                 <a href="loan.html" class="card-link">अधिक माहिती <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Card 3: Reports & Dashboard -->
             <div class="card">
                 <i class="fa-solid fa-chart-line"></i>
                 <h3>हप्ते व अहवाल (Reports)</h3>
-                <p>तुमच्या खात्याची माहिती, हप्ते (Installments) आणि आर्थिक रिपोर्ट्स कधीही आणि कुठेही पहा.</p>
-                <a href="dashboard.html" class="card-link">डॅशबोर्ड पहा <i class="fa-solid fa-arrow-right"></i></a>
+                <p>तुमच्या खात्याचे हप्ते, शिल्लक रक्कम आणि सर्व आर्थिक रिपोर्ट्स कधीही पारदर्शकपणे पहा.</p>
+                <a href="reports.html" class="card-link">अहवाल पहा <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- ================= 4. ABOUT SHORT SUMMARY ================= -->
+    <section style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <div style="background: #ffffff; padding: 35px; border-radius: 12px; box-shadow: var(--shadow); border-left: 6px solid var(--primary-navy, #0B2545);">
+            <h2 style="color: #0B2545; margin-bottom: 12px; font-size: 1.6rem;">आमच्या समूहाबद्दल</h2>
+            <p style="color: #1D2D44; font-size: 1rem; line-height: 1.8;">
+                <strong>गणराज्य स्वयं सहाय्यता समूह</strong> हा सदस्यांना एकत्र आणून त्यांच्यात बचतीची सवय निर्माण करण्यासाठी व परस्पर सहकार्यातून आत्मनिर्भर बनवण्यासाठी कार्यरत आहे. पारदर्शकता, सुरक्षा आणि सामाजिक बांधीलकी ही आमची मुख्य मूल्ये आहेत.
+            </p>
+            <a href="about.html" style="display: inline-block; margin-top: 15px; color: #E85D04; font-weight: 600;">अधिक वाचा <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- ================= 5. FOOTER ================= -->
     <footer class="footer">
-        <p>&copy; 2026 Ganrajya Group. सर्व हक्क सुरक्षित.</p>
+        <p>&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
     </footer>
 
-    <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('mobile-menu');
-            const navMenu = document.querySelector('.nav-menu');
-
-            if (menuToggle && navMenu) {
-                menuToggle.addEventListener('click', () => {
-                    // Toggle active class on menu and button
-                    navMenu.classList.toggle('active');
-                    menuToggle.classList.toggle('is-active');
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (event) => {
-                    const isClickInside = menuToggle.contains(event.target) || navMenu.contains(event.target);
-                    if (!isClickInside && navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.classList.remove('is-active');
-                    }
-                });
-
-                // Close menu when clicking any nav link
-                const navLinks = document.querySelectorAll('.nav-link, .nav-btn');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                        menuToggle.classList.remove('is-active');
-                    });
-                });
-            }
-        });
-    </script>
+    <!-- External JavaScript File -->
+    <script src="./js/app.js"></script>
 </body>
 </html>
