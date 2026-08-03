@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>सदस्य लॉगिन - गणराज्य स्वयं सहाय्यता समूह</title>
+    <title>पोर्टल लॉगिन - गणराज्य स्वयं सहाय्यता समूह</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +11,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts (Mukta & Poppins) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -21,14 +21,18 @@
             --green: #138808;
             --navy: #000080;
             --dark-blue: #0B2545;
-            --light-bg: #F8F9FA;
+            --light-bg: #F4F6F9;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
         }
 
         body {
             font-family: 'Mukta', 'Poppins', sans-serif;
             background-color: var(--light-bg);
             color: #333;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
@@ -50,8 +54,8 @@
         }
 
         .logo-img {
-            height: 48px;
-            width: 48px;
+            height: 45px;
+            width: 45px;
             border-radius: 50%;
             border: 2px solid var(--saffron);
             background: #fff;
@@ -67,7 +71,7 @@
 
         .nav-link:hover, .nav-link.active {
             color: var(--saffron) !important;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             border-radius: 5px;
         }
 
@@ -76,19 +80,14 @@
             color: white !important;
             font-weight: 600;
             border-radius: 25px;
-            padding: 8px 20px;
+            padding: 8px 22px;
             border: none;
             box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
             transition: 0.3s;
         }
 
-        .btn-tiranga:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
-
-        /* --- LOGIN CARD STYLING --- */
-        .login-container {
+        /* --- MAIN LOGIN CONTAINER --- */
+        .main-wrapper {
             flex: 1;
             display: flex;
             align-items: center;
@@ -101,51 +100,38 @@
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 450px;
+            max-width: 460px;
             overflow: hidden;
             border-top: 5px solid var(--saffron);
-            border-bottom: 5px solid var(--green);
         }
 
         .login-header {
-            background: var(--dark-blue);
-            color: white;
-            padding: 25px 20px;
             text-align: center;
+            padding: 25px 20px 10px 20px;
         }
 
-        .login-header img {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 2px solid var(--saffron);
-            margin-bottom: 10px;
+        .login-header h4 {
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 2px;
         }
 
-        .nav-tabs .nav-link {
-            color: #666 !important;
+        .nav-pills .nav-link {
+            color: var(--dark-blue);
+            background-color: #E2E8F0;
             font-weight: 600;
-            border: none;
-            border-bottom: 3px solid transparent;
-            border-radius: 0;
-            padding: 12px;
+            border-radius: 8px;
+            padding: 10px;
         }
 
-        .nav-tabs .nav-link.active {
-            color: var(--dark-blue) !important;
-            border-bottom: 3px solid var(--saffron);
-            background: transparent;
+        .nav-pills .nav-link.active {
+            background-color: var(--dark-blue);
+            color: white;
         }
 
         .form-control:focus {
             border-color: var(--saffron);
             box-shadow: 0 0 0 0.25rem rgba(255, 153, 51, 0.25);
-        }
-
-        .password-toggle {
-            cursor: pointer;
-            background: transparent;
-            border-left: none;
         }
 
         /* --- FLOATING BUTTONS --- */
@@ -179,8 +165,8 @@
         .footer-custom {
             background-color: var(--dark-blue);
             color: #ddd;
-            padding: 40px 0 20px 0;
-            border-top: 5px solid var(--green);
+            padding: 15px 0;
+            border-top: 4px solid var(--green);
             margin-top: auto;
         }
     </style>
@@ -216,101 +202,88 @@
         </div>
     </nav>
 
-    <!-- ================= LOGIN SECTION ================= -->
-    <div class="login-container">
+    <!-- ================= MAIN LOGIN CONTENT ================= -->
+    <div class="main-wrapper">
         <div class="login-card">
             
             <div class="login-header">
-                <img src="images/logo_2.png" alt="Logo" onerror="this.src='https://via.placeholder.com/65?text=Logo'">
-                <h4 class="fw-bold mb-1">सदस्य पोर्टल</h4>
-                <p class="small text-light mb-0">गणराज्य स्वयं सहाय्यता समूह</p>
+                <h4>पोर्टल लॉगिन (Login)</h4>
+                <p class="small text-muted mb-3">गणराज्य स्वयं सहाय्यता समूह डिजिटल पोर्टल</p>
+
+                <!-- TAB SWITCHER -->
+                <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-member-tab" data-bs-toggle="pill" data-bs-target="#pills-member" type="button" role="tab"><i class="fa-solid fa-user me-2"></i>सदस्य</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-admin-tab" data-bs-toggle="pill" data-bs-target="#pills-admin" type="button" role="tab"><i class="fa-solid fa-user-shield me-2"></i>ॲडमिन</button>
+                    </li>
+                </ul>
             </div>
 
-            <!-- LOGIN TYPE TABS -->
-            <ul class="nav nav-tabs nav-justified" id="loginTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="member-tab" data-bs-toggle="tab" data-bs-target="#member-login" type="button" role="tab">
-                        <i class="fa-solid fa-user me-1"></i> सदस्य
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-login" type="button" role="tab">
-                        <i class="fa-solid fa-user-shield me-1"></i> ॲडमिन
-                    </button>
-                </li>
-            </ul>
-
-            <div class="p-4">
-                <div class="tab-content" id="loginTabContent">
+            <div class="p-4 pt-0">
+                <div class="tab-content" id="pills-tabContent">
                     
-                    <!-- MEMBER LOGIN FORM -->
-                    <div class="tab-pane fade show active" id="member-login" role="tabpanel">
-                        <form id="memberLoginForm" onsubmit="handleLogin(event, 'member')">
+                    <!-- MEMBER LOGIN -->
+                    <div class="tab-pane fade show active" id="pills-member" role="tabpanel">
+                        <form onsubmit="event.preventDefault(); alert('लॉगिन प्रकिया सुरू होत आहे...');">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold small">सदस्य आयडी (Member ID) / मोबाईल नंबर</label>
+                                <label class="form-label fw-bold small">सदस्य आयडी / मोबाईल नंबर</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-id-card text-secondary"></i></span>
-                                    <input type="text" class="form-control" id="memberId" placeholder="उदा. GNM-101 किंवा 9876543210" required>
+                                    <span class="input-group-text"><i class="fa-solid fa-id-card text-muted"></i></span>
+                                    <input type="text" class="form-control" placeholder="उदा. GNM-101 किंवा 9876543210" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold small">पासवर्ड</label>
+                                <label class="form-label fw-bold small">पासवर्ड (Password)</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-lock text-secondary"></i></span>
-                                    <input type="password" class="form-control" id="memberPass" placeholder="तुमचा पासवर्ड टाका" required>
-                                    <button class="btn btn-outline-secondary password-toggle" type="button" onclick="togglePassword('memberPass', this)">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <span class="input-group-text"><i class="fa-solid fa-lock text-muted"></i></span>
+                                    <input type="password" id="mPass" class="form-control" placeholder="******" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePass('mPass', this)"><i class="fa-solid fa-eye"></i></button>
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rememberMember">
-                                    <label class="form-check-label small" for="rememberMember">लक्षात ठेवा</label>
+                                    <input type="checkbox" class="form-check-input" id="rem">
+                                    <label class="form-check-label small" for="rem">लक्षात ठेवा</label>
                                 </div>
-                                <a href="#" class="small text-decoration-none text-danger" onclick="alert('पासवर्ड रीसेट करण्यासाठी कृपया अध्यक्षांशी किंवा सचिवांशी संपर्क साधा.')">पासवर्ड विसरलात?</a>
+                                <a href="#" class="small text-decoration-none text-primary fw-bold" onclick="alert('पासवर्डसाठी सचिवांशी संपर्क साधा.')">पासवर्ड विसरलात?</a>
                             </div>
 
-                            <button type="submit" class="btn btn-tiranga w-100 py-2 fs-6">
-                                <i class="fa-solid fa-right-to-bracket me-2"></i>लॉगिन करा
-                            </button>
+                            <button type="submit" class="btn btn-tiranga w-100 py-2 fs-6 fw-bold">लॉगिन करा</button>
                         </form>
                     </div>
 
-                    <!-- ADMIN LOGIN FORM -->
-                    <div class="tab-pane fade" id="admin-login" role="tabpanel">
-                        <form id="adminLoginForm" onsubmit="handleLogin(event, 'admin')">
+                    <!-- ADMIN LOGIN -->
+                    <div class="tab-pane fade" id="pills-admin" role="tabpanel">
+                        <form onsubmit="event.preventDefault(); alert('ॲडमिन लॉगिन तपासले जात आहे...');">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold small">ॲडमिन युझरनेम (Username)</label>
+                                <label class="form-label fw-bold small">ॲडमिन युझरनेम</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-user-gear text-secondary"></i></span>
-                                    <input type="text" class="form-control" id="adminUser" placeholder="Admin Username" required>
+                                    <span class="input-group-text"><i class="fa-solid fa-user-gear text-muted"></i></span>
+                                    <input type="text" class="form-control" placeholder="Admin Username" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold small">ॲडमिन पासवर्ड</label>
+                                <label class="form-label fw-bold small">ॲडमिन पासवर्ड</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-key text-secondary"></i></span>
-                                    <input type="password" class="form-control" id="adminPass" placeholder="Admin Password" required>
-                                    <button class="btn btn-outline-secondary password-toggle" type="button" onclick="togglePassword('adminPass', this)">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <span class="input-group-text"><i class="fa-solid fa-key text-muted"></i></span>
+                                    <input type="password" id="aPass" class="form-control" placeholder="******" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePass('aPass', this)"><i class="fa-solid fa-eye"></i></button>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-dark w-100 py-2 fs-6" style="background-color: var(--dark-blue);">
-                                <i class="fa-solid fa-shield-halved me-2"></i>ॲडमिन लॉगिन
-                            </button>
+                            <button type="submit" class="btn btn-dark w-100 py-2 fs-6 fw-bold" style="background-color: var(--dark-blue);">ॲडमिन लॉगिन</button>
                         </form>
                     </div>
 
                 </div>
 
                 <div class="text-center mt-4 pt-3 border-top">
-                    <p class="small text-muted mb-0">अजून सदस्य नोंदणी झाली नाही? <a href="contact.html" class="fw-semibold text-success text-decoration-none">संपर्क करा</a></p>
+                    <p class="small text-muted mb-0">नवीन सदस्य आहात? <a href="contact.html" class="fw-bold text-success text-decoration-none">नोंदणी करा</a></p>
                 </div>
             </div>
 
@@ -319,33 +292,8 @@
 
     <!-- ================= FOOTER ================= -->
     <footer class="footer-custom">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="fw-bold">गणराज्य स्वयं सहाय्यता समूह</h5>
-                    <p class="small">सामाजिक एकता आणि आर्थिक समृद्धीसाठी कटिबद्ध असणारा महाराष्ट्रातील अग्रगण्य बचत समूह.</p>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="fw-bold">महत्त्वाच्या लिंक्स</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="about.html" class="text-decoration-none text-light">&rsaquo; आमच्याबद्दल</a></li>
-                        <li><a href="savings.html" class="text-decoration-none text-light">&rsaquo; बचत योजना नियम</a></li>
-                        <li><a href="loan.html" class="text-decoration-none text-light">&rsaquo; कर्ज अर्ज प्रक्रिया</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="fw-bold">सोशल मीडिया</h5>
-                    <div class="d-flex justify-content-center justify-content-lg-start gap-3 fs-5">
-                        <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="mt-4 bg-secondary">
-            <div class="text-center pt-1 small">
-                <p class="mb-0">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
-            </div>
+        <div class="container text-center">
+            <p class="mb-0 small">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
         </div>
     </footer>
 
@@ -362,33 +310,16 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JS Logic -->
     <script>
-        // Toggle Password Visibility
-        function togglePassword(inputId, btn) {
+        function togglePass(inputId, btn) {
             const input = document.getElementById(inputId);
             const icon = btn.querySelector('i');
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                icon.className = 'fa-solid fa-eye-slash';
             } else {
                 input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        // Form Submit Handler
-        function handleLogin(event, type) {
-            event.preventDefault();
-            if (type === 'member') {
-                const memberId = document.getElementById('memberId').value;
-                alert(`जी - ${memberId}, तुमचे लॉगिन यशस्वी झाले आहे! (Dashboard Page Redirecting...)`);
-                // window.location.href = "dashboard.html"; // भविष्यात डॅशबोर्ड पेज जोडल्यास हे चालू करा
-            } else if (type === 'admin') {
-                alert("ॲडमिन पॅनेलमध्ये स्वागत आहे!");
-                // window.location.href = "admin-dashboard.html";
+                icon.className = 'fa-solid fa-eye';
             }
         }
     </script>
