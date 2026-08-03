@@ -3,141 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>संपर्क करा | गणराज्य स्वयंसहाय्यता समूह</title>
+    <title>संपर्क - गणराज्य स्वयं सहाय्यता समूह</title>
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            overflow-x: hidden;
         }
-        .contact-card {
+
+        /* --- STICKY NAVBAR --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
             border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            background: linear-gradient(rgba(11, 37, 69, 0.9), rgba(19, 136, 8, 0.85)), url('images/banner.jpg') center/cover no-repeat;
+            padding: 50px 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- CONTACT CARDS --- */
+        .contact-info-card {
+            background: white;
             border-radius: 12px;
-            transition: transform 0.3s ease;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--saffron);
+            height: 100%;
+            transition: 0.3s;
         }
-        .contact-card:hover {
+
+        .contact-info-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .icon-box {
-            width: 60px;
-            height: 60px;
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 153, 51, 0.15);
+            color: var(--saffron);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--green);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 0.25rem rgba(19, 136, 8, 0.25);
+        }
+
+        /* --- FLOATING BUTTONS --- */
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 24px;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 50px 0 20px 0;
+            border-top: 5px solid var(--green);
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="index.html">
-                <i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="register.html">सदस्य नोंदणी</a></li>
-                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज अर्ज</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">लॉगिन</a></li>
-                    <li class="nav-item"><a class="nav-link" href="wishes.html">विशेष शुभेच्छा</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
                     <li class="nav-item"><a class="nav-link active" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-primary mb-2">आमच्याशी संपर्क साधा</h2>
-            <p class="text-muted">गणराज्य स्वयंसहाय्यता समूहाबाबत कोणत्याही माहितीसाठी किंवा मदतीसाठी खालील माध्यमांतून संपर्क करा.</p>
-        </div>
-
-        <!-- Contact Info Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-4 text-center">
-                <div class="card contact-card p-4 shadow-sm h-100 bg-white">
-                    <div class="icon-box bg-primary text-white">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <h5 class="fw-bold">मोबाईल नंबर</h5>
-                    <p class="text-muted mb-0">+91 93214 30535</p>
-                    <small class="text-success"><i class="fa-brands fa-whatsapp me-1"></i>व्हॉट्सॲपवर उपलब्ध</small>
-                </div>
-            </div>
-
-            <div class="col-md-4 text-center">
-                <div class="card contact-card p-4 shadow-sm h-100 bg-white">
-                    <div class="icon-box bg-danger text-white">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <h5 class="fw-bold">ईमेल आयडी</h5>
-                    <p class="text-muted mb-0">ganrajyagroup1@gmail.com</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 text-center">
-                <div class="card contact-card p-4 shadow-sm h-100 bg-white">
-                    <div class="icon-box bg-success text-white">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <h5 class="fw-bold">पत्ता</h5>
-                    <p class="text-muted mb-0">मुंबई, महाराष्ट्र, भारत</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Direct Message Form -->
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card p-4 shadow-sm border-0 bg-white">
-                    <h4 class="text-center mb-4 text-primary fw-bold">थेट संदेश पाठवा</h4>
-                    <form onsubmit="alert('तुमचा संदेश प्राप्त झाला आहे! आम्ही लवकरच संपर्क करू.'); return false;">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">तुमचे नाव *</label>
-                                <input type="text" class="form-control" required placeholder="पूर्ण नाव">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">मोबाईल नंबर *</label>
-                                <input type="tel" class="form-control" required placeholder="१० अंकी नंबर">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">विषय</label>
-                                <input type="text" class="form-control" placeholder="उदा. नवीन सदस्य नोंदणी चौकशी">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">संदेश *</label>
-                                <textarea class="form-control" rows="4" required placeholder="तुमचा संदेश येथे लिहा..."></textarea>
-                            </div>
-                            <div class="col-12 text-center mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg px-5 fw-bold">संदेश पाठवा</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
         <div class="container">
-            <p class="mb-0">&copy; 2026 गणराज्य स्वयंसहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            <h1 class="fw-bold mb-2">आमच्याशी संपर्क साधा</h1>
+            <p class="lead mb-0">बचत योजना किंवा कर्ज सुविधेबाबत काही शंका असल्यास निसंकोच संपर्क करा</p>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT DETAILS & FORM ================= -->
+    <section class="py-5">
+        <div class="container">
+            
+            <!-- Info Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">मुख्य कार्यालय</h5>
+                        <p class="text-secondary small mb-0">गणराज्य स्वयं सहाय्यता समूह कार्यालय, मुख्य रस्ता, तालुका व जिल्हा - ठाणे, महाराष्ट्र - ४००६०१.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="contact-info-card" style="border-left-color: var(--green);">
+                        <div class="contact-icon" style="background-color: rgba(19, 136, 8, 0.15); color: var(--green);">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">फोन व व्हॉट्सॲप</h5>
+                        <p class="text-secondary small mb-1">अध्यक्ष: +91 98765 43210</p>
+                        <p class="text-secondary small mb-0">सचिव: +91 97654 32109</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="contact-info-card" style="border-left-color: var(--navy);">
+                        <div class="contact-icon" style="background-color: rgba(0, 0, 128, 0.15); color: var(--navy);">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">कामाची वेळ</h5>
+                        <p class="text-secondary small mb-1">सोमवार ते शनिवार: सकाळी १० ते संध्याकाळी ६</p>
+                        <p class="text-secondary small mb-0 text-danger fw-bold">रविवार: सुट्टी</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form & Map Row -->
+            <div class="row g-4 align-items-stretch">
+                <!-- Contact Form -->
+                <div class="col-lg-7">
+                    <div class="form-card">
+                        <h4 class="fw-bold mb-3" style="color: var(--dark-blue);"><i class="fa-solid fa-paper-plane text-success me-2"></i> ऑनलाईन संदेश पाठवा</h4>
+                        <p class="small text-muted mb-4">खालील फॉर्म भरा, आमचे प्रतिनिधी लवकरच आपल्याशी संपर्क साधतील.</p>
+                        
+                        <form onsubmit="event.preventDefault(); alert('तुमचा मेसेज यशस्वीरित्या पाठवला गेला आहे!');">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">तुमचे नाव *</label>
+                                    <input type="text" class="form-control" placeholder="उदा. अमोल पाटील" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">मोबाईल नंबर *</label>
+                                    <input type="tel" class="form-control" placeholder="१० अंकी नंबर" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small text-secondary">विषय (Subject) *</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>विषय निवडा...</option>
+                                        <option>नवीन सदस्यत्व चौकशी</option>
+                                        <option>बचत योजनेबद्दल महिती</option>
+                                        <option>कर्ज सुविधेबद्दल माहिती</option>
+                                        <option>इतर तक्रार / सूचना</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small text-secondary">तुमचा संदेश / प्रश्न *</label>
+                                    <textarea class="form-control" rows="4" placeholder="येथे विस्तृत संदेश लिहा..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-tiranga px-4 py-2 w-100 fs-6">
+                                        <i class="fa-solid fa-paper-plane me-1"></i> मेसेज पाठवा (Send Message)
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Google Map Placeholder -->
+                <div class="col-lg-5">
+                    <div class="h-100 rounded-4 overflow-hidden border shadow-sm" style="min-height: 350px;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823278!2d72.74109852238495!3d19.08219783958742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; min-height: 350px;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>गणराज्य स्वयं सहाय्यता समूह</h5>
+                    <p>सामाजिक एकता आणि आर्थिक समृद्धीसाठी कटिबद्ध असणारा महाराष्ट्रातील अग्रगण्य बचत समूह.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>महत्त्वाच्या लिंक्स</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-decoration-none text-light">&rsaquo; आमच्याबद्दल</a></li>
+                        <li><a href="savings.html" class="text-decoration-none text-light">&rsaquo; बचत योजना नियम</a></li>
+                        <li><a href="loan.html" class="text-decoration-none text-light">&rsaquo; कर्ज अर्ज प्रक्रिया</a></li>
+                        <li><a href="register.html" class="text-decoration-none text-light">&rsaquo; ऑनलाईन नोंदणी</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>सोशल मीडिया</h5>
+                    <div class="d-flex justify-content-center justify-content-lg-start gap-3 fs-4">
+                        <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 bg-secondary">
+            <div class="text-center pt-2">
+                <p class="mb-0">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <!-- ================= FLOATING ACTION BUTTONS ================= -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="float-btn float-call" title="Call">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
