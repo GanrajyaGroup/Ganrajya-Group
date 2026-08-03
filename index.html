@@ -31,7 +31,7 @@
             overflow-x: hidden;
         }
 
-        /* --- STICKY NAVBAR WITH TIRANGA ACCENT --- */
+        /* --- STICKY NAVBAR WITH LOGO FIX --- */
         .navbar-custom {
             background-color: var(--dark-blue);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -44,9 +44,10 @@
             color: var(--white) !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
+        /* लोगो फिक्स - हलू न देणारा व सुटसुटीत गोल लोगो */
         .logo-img {
             height: 48px;
             width: 48px;
@@ -54,6 +55,8 @@
             border: 2px solid var(--saffron);
             background: #fff;
             object-fit: cover;
+            flex-shrink: 0; /* साईझ लहान-मोठी होणे थांबवतो */
+            display: block;
         }
 
         .nav-link {
@@ -81,7 +84,6 @@
         }
 
         .btn-tiranga:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(255, 153, 51, 0.5);
         }
 
@@ -119,7 +121,7 @@
             color: white;
         }
 
-        /* --- FEATURE & COUNTER CARDS --- */
+        /* --- FEATURE CARDS --- */
         .section-padding {
             padding: 70px 0;
         }
@@ -155,15 +157,10 @@
             border-radius: 12px;
             border: none;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
             padding: 25px;
             height: 100%;
             border-top: 4px solid var(--navy);
-        }
-
-        .custom-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            backface-visibility: hidden;
         }
 
         .card-green { border-top-color: var(--green); }
@@ -188,7 +185,7 @@
             color: var(--saffron);
         }
 
-        /* --- NOTICE & GALLERY --- */
+        /* --- NOTICE & GALLERY FIX --- */
         .notice-board {
             background: #fff;
             border-radius: 12px;
@@ -204,16 +201,21 @@
             border-bottom: 1px dashed #eee;
         }
 
-        .gallery-img {
+        /* गॅलरीचे फोटो स्थिर ठेवण्यासाठी सीएसएस */
+        .gallery-img-wrapper {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            overflow: hidden;
             border-radius: 10px;
-            transition: 0.3s;
+            background: #f0f0f0;
         }
 
-        .gallery-img:hover {
-            transform: scale(1.03);
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* चित्र ताणले किंवा हलू न देता बॉक्समध्ये फिक्स बसवतो */
+            object-position: center;
+            display: block;
         }
 
         /* --- FLOATING ACTION BUTTONS --- */
@@ -238,12 +240,10 @@
             font-size: 1.4rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             text-decoration: none;
-            transition: 0.3s;
         }
 
         .float-whatsapp { background-color: #25D366; }
         .float-call { background-color: #007bff; }
-        .float-btn:hover { color: white; transform: scale(1.1); }
 
         /* --- FOOTER --- */
         .footer-custom {
@@ -353,7 +353,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="counter-box">
-                        <h3>₹५० लाखा+)</h3>
+                        <h3>₹५० लाख+</h3>
                         <p class="mb-0">एकूण बचत</p>
                     </div>
                 </div>
@@ -401,10 +401,14 @@
                     <h3 class="fw-bold mb-3" style="color: var(--dark-blue);"><i class="fa-solid fa-images text-success me-2"></i>समूह गॅलरी</h3>
                     <div class="row g-2">
                         <div class="col-6">
-                            <img src="images/banner.jpg" class="gallery-img" alt="बैठक photo" onerror="this.src='https://via.placeholder.com/300x200?text=Ganrajya+Group'">
+                            <div class="gallery-img-wrapper">
+                                <img src="images/banner.jpg" class="gallery-img" alt="बैठक photo" onerror="this.src='https://via.placeholder.com/300x200?text=Ganrajya+Group'">
+                            </div>
                         </div>
                         <div class="col-6">
-                            <img src="images/logo_2.png" class="gallery-img" alt="कार्यक्रम photo" onerror="this.src='https://via.placeholder.com/300x200?text=Activity'">
+                            <div class="gallery-img-wrapper">
+                                <img src="images/logo_2.png" class="gallery-img" alt="कार्यक्रम photo" onerror="this.src='https://via.placeholder.com/300x200?text=Activity'">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -484,9 +488,5 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Smooth scroll & Active menu auto selector
-        console.log("Ganrajya Group Website Loaded Successfully!");
-    </script>
 </body>
 </html>
