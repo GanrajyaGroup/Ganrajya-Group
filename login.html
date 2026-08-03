@@ -3,49 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>सदस्य लॉगिन | गणराज्य समूह</title>
+    <title>लॉगिन - गणराज्य स्वयं सहाय्यता समूह</title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-light">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- STICKY NAVBAR --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        /* --- LOGIN CARD STYLES --- */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            border-top: 5px solid var(--saffron);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--dark-blue) !important;
+            font-weight: 600;
+            border-radius: 8px;
+            background-color: #f1f3f5;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--dark-blue) !important;
+            color: white !important;
+        }
+
+        .form-control:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 0.25rem rgba(255, 153, 51, 0.25);
+        }
+
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 30px 0 15px 0;
+            border-top: 5px solid var(--green);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="index.html"><i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप</a>
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="register.html">सदस्य नोंदणी</a></li>
-                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज अर्ज</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="login.html">लॉगिन</a></li>
-                    <li class="nav-item"><a class="nav-link" href="wishes.html">विशेष शुभेच्छा</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0 active" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card p-4 shadow-sm border-0">
-                    <h3 class="text-center mb-4 text-primary fw-bold">सदस्य लॉगिन</h3>
-                    <form onsubmit="alert('लॉगिन यशस्वी!'); return false;">
+    <!-- ================= LOGIN FORM SECTION ================= -->
+    <div class="login-container">
+        <div class="login-card p-4 p-sm-5">
+            
+            <div class="text-center mb-4">
+                <img src="images/logo_2.png" alt="Logo" height="60" class="mb-2" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+                <h4 class="fw-bold mb-1" style="color: var(--dark-blue);">पोर्टल लॉगिन (Login)</h4>
+                <p class="small text-muted">गणराज्य स्वयं सहाय्यता समूह डिजिटल पोर्टल</p>
+            </div>
+
+            <!-- LOGIN SWITCH TABS -->
+            <ul class="nav nav-pills nav-justified mb-4" id="loginTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="member-tab" data-bs-toggle="tab" data-bs-target="#member-login" type="button" role="tab"><i class="fa-solid fa-user me-1"></i> सदस्य</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-login" type="button" role="tab"><i class="fa-solid fa-user-gear me-1"></i> ॲडमिन</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="loginTabContent">
+                
+                <!-- MEMBER LOGIN FORM -->
+                <div class="tab-pane fade show active" id="member-login" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('सदस्य लॉगिन यशस्वी!');">
                         <div class="mb-3">
-                            <label class="form-label">मोबाईल नंबर / सदस्य ID</label>
-                            <input type="text" class="form-control" required placeholder="तुमचा आयडी टाका">
+                            <label class="form-label fw-bold small text-secondary">सदस्य आयडी / मोबाईल नंबर</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-id-card text-muted"></i></span>
+                                <input type="text" class="form-control" placeholder="उदा. GNM-101 किंवा 9876543210" required>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">पासवर्ड</label>
-                            <input type="password" class="form-control" required placeholder="पासवर्ड टाका">
+                            <label class="form-label fw-bold small text-secondary">पासवर्ड (Password)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-lock text-muted"></i></span>
+                                <input type="password" class="form-control" placeholder="******" required>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg w-100">लॉगिन करा</button>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMember">
+                                <label class="form-check-label small text-muted" for="rememberMember">लक्षात ठेवा</label>
+                            </div>
+                            <a href="#" class="small text-decoration-none text-primary">पासवर्ड विसरलात?</a>
+                        </div>
+                        <button type="submit" class="btn btn-tiranga w-100 py-2 fs-6">लॉगिन करा</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <span class="small text-muted">नवीन सदस्य आहात? <a href="register.html" class="fw-bold text-success text-decoration-none">नोंदणी करा</a></span>
+                    </div>
+                </div>
+
+                <!-- ADMIN LOGIN FORM -->
+                <div class="tab-pane fade" id="admin-login" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('ॲडमिन लॉगिन यशस्वी!');">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">ॲडमिन युझरनेम (Username)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-user-shield text-muted"></i></span>
+                                <input type="text" class="form-control" placeholder="Admin ID" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">सुरक्षा पिन / पासवर्ड</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-key text-muted"></i></span>
+                                <input type="password" class="form-control" placeholder="******" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 py-2 fs-6 mt-2" style="background-color: var(--dark-blue);">ॲडमिन प्रवेश करा</button>
                     </form>
                 </div>
+
             </div>
+
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom text-center">
+        <div class="container">
+            <p class="mb-0 small">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लॉगिन - गणराज्य स्वयं सहाय्यता समूह</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- STICKY NAVBAR --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        /* --- LOGIN CARD STYLES --- */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            border-top: 5px solid var(--saffron);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--dark-blue) !important;
+            font-weight: 600;
+            border-radius: 8px;
+            background-color: #f1f3f5;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--dark-blue) !important;
+            color: white !important;
+        }
+
+        .form-control:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 0.25rem rgba(255, 153, 51, 0.25);
+        }
+
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 30px 0 15px 0;
+            border-top: 5px solid var(--green);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0 active" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= LOGIN FORM SECTION ================= -->
+    <div class="login-container">
+        <div class="login-card p-4 p-sm-5">
+            
+            <div class="text-center mb-4">
+                <img src="images/logo_2.png" alt="Logo" height="60" class="mb-2" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+                <h4 class="fw-bold mb-1" style="color: var(--dark-blue);">पोर्टल लॉगिन (Login)</h4>
+                <p class="small text-muted">गणराज्य स्वयं सहाय्यता समूह डिजिटल पोर्टल</p>
+            </div>
+
+            <!-- LOGIN SWITCH TABS -->
+            <ul class="nav nav-pills nav-justified mb-4" id="loginTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="member-tab" data-bs-toggle="tab" data-bs-target="#member-login" type="button" role="tab"><i class="fa-solid fa-user me-1"></i> सदस्य</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-login" type="button" role="tab"><i class="fa-solid fa-user-gear me-1"></i> ॲडमिन</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="loginTabContent">
+                
+                <!-- MEMBER LOGIN FORM -->
+                <div class="tab-pane fade show active" id="member-login" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('सदस्य लॉगिन यशस्वी!');">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">सदस्य आयडी / मोबाईल नंबर</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-id-card text-muted"></i></span>
+                                <input type="text" class="form-control" placeholder="उदा. GNM-101 किंवा 9876543210" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">पासवर्ड (Password)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-lock text-muted"></i></span>
+                                <input type="password" class="form-control" placeholder="******" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMember">
+                                <label class="form-check-label small text-muted" for="rememberMember">लक्षात ठेवा</label>
+                            </div>
+                            <a href="#" class="small text-decoration-none text-primary">पासवर्ड विसरलात?</a>
+                        </div>
+                        <button type="submit" class="btn btn-tiranga w-100 py-2 fs-6">लॉगिन करा</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <span class="small text-muted">नवीन सदस्य आहात? <a href="register.html" class="fw-bold text-success text-decoration-none">नोंदणी करा</a></span>
+                    </div>
+                </div>
+
+                <!-- ADMIN LOGIN FORM -->
+                <div class="tab-pane fade" id="admin-login" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('ॲडमिन लॉगिन यशस्वी!');">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">ॲडमिन युझरनेम (Username)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-user-shield text-muted"></i></span>
+                                <input type="text" class="form-control" placeholder="Admin ID" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-secondary">सुरक्षा पिन / पासवर्ड</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fa-solid fa-key text-muted"></i></span>
+                                <input type="password" class="form-control" placeholder="******" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 py-2 fs-6 mt-2" style="background-color: var(--dark-blue);">ॲडमिन प्रवेश करा</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom text-center">
+        <div class="container">
+            <p class="mb-0 small">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
