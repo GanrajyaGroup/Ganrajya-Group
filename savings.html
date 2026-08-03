@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बचत योजना - गणराज्य स्वयं सहाय्यता समूह</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* --- STICKY NAVBAR --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-tiranga:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 153, 51, 0.5);
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            background: linear-gradient(rgba(11, 37, 69, 0.9), rgba(19, 136, 8, 0.85)), url('images/banner.jpg') center/cover no-repeat;
+            padding: 50px 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- SAVINGS CARDS --- */
+        .savings-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--saffron);
+            height: 100%;
+            transition: 0.3s ease;
+        }
+
+        .savings-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-green { border-top-color: var(--green); }
+        .card-navy { border-top-color: var(--navy); }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .bg-saffron-light { background: #fff3e6; color: var(--saffron); }
+        .bg-green-light { background: #e6f4e6; color: var(--green); }
+        .bg-navy-light { background: #e6e6f2; color: var(--navy); }
+
+        /* --- FLOATING ACTION BUTTONS --- */
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+
+        /* --- FOOTER --- */
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 50px 0 20px 0;
+            border-top: 5px solid var(--green);
+        }
+
+        .footer-custom h5 {
+            color: var(--saffron);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="fw-bold">समूहाच्या बचत योजना (Savings Schemes)</h1>
+            <p class="lead mb-0">छोट्या बचतीतून उभा करा भक्कम आर्थिक आधार!</p>
+        </div>
+    </section>
+
+    <!-- ================= SAVINGS SCHEMES SECTION ================= -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: var(--dark-blue);">आमच्या प्रमुख बचत योजना</h2>
+                <p class="text-muted">सदस्यांच्या सोयीसाठी आणि भविष्यातील सुरक्षिततेसाठी विविध बचत पर्याय</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Scheme 1 -->
+                <div class="col-md-4">
+                    <div class="savings-card">
+                        <div class="icon-circle bg-saffron-light">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+                        <h3 class="fw-bold h4 mb-3" style="color: var(--dark-blue);">मासिक नियमित बचत</h3>
+                        <p class="text-muted">प्रत्येक सदस्यासाठी दरमहा निश्चित रक्कम जमा करणे अनिवार्य आहे. या बचतीवर वार्षिक आकर्षक लाभांश दिला जातो.</p>
+                        <hr>
+                        <ul class="list-unstyled text-secondary small">
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-warning me-2"></i>दरमहा निश्चित योगदान</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-warning me-2"></i>कर्ज मिळवण्यासाठी उपयुक्त</li>
+                            <li><i class="fa-solid fa-circle-check text-warning me-2"></i>पारदर्शक ऑनलाइन ट्रॅकिंग</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Scheme 2 -->
+                <div class="col-md-4">
+                    <div class="savings-card card-green">
+                        <div class="icon-circle bg-green-light">
+                            <i class="fa-solid fa-vault"></i>
+                        </div>
+                        <h3 class="fw-bold h4 mb-3" style="color: var(--dark-blue);">विशेष मुदत ठेव (FD)</h3>
+                        <p class="text-muted">अधिक रकमेची विशिष्ट कालावधीसाठी (१ ते ३ वर्षे) सुरक्षित ठेव ठेवून अधिक परतावा मिळवण्याची सुवर्णसंधी.</p>
+                        <hr>
+                        <ul class="list-unstyled text-secondary small">
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i>अधिक व्याजदर</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i>सुरक्षित आणि खात्रीशीर</li>
+                            <li><i class="fa-solid fa-circle-check text-success me-2"></i>पावती लगेच जनरेट होते</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Scheme 3 -->
+                <div class="col-md-4">
+                    <div class="savings-card card-navy">
+                        <div class="icon-circle bg-navy-light">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="fw-bold h4 mb-3" style="color: var(--dark-blue);">आपत्कालीन मदत निधी</h3>
+                        <p class="text-muted">समूहातील कोणत्याही सदस्यावर अचानक संकट आल्यास किंवा वैद्यकीय गरजेसाठी राखीव ठेवलेला विशेष निधी.</p>
+                        <hr>
+                        <ul class="list-unstyled text-secondary small">
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-primary me-2"></i>तातडीची मदत</li>
+                            <li class="mb-2"><i class="fa-solid fa-circle-check text-primary me-2"></i>कमीत कमी नियम</li>
+                            <li><i class="fa-solid fa-circle-check text-primary me-2"></i>परस्परांना सामाजिक आधार</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= RULES & TRANSPARENCY ================= -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4" style="color: var(--dark-blue);">बचत योजनेचे नियम व अटी</h2>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <i class="fa-solid fa-square-check fs-4 text-success mt-1"></i>
+                        <div>
+                            <h5 class="fw-bold mb-1">वेळेवर हप्ता भरणे</h5>
+                            <p class="text-muted mb-0">दरमहा १० तारखेच्या आत आपली मासिक बचत जमा करणे आवश्यक आहे.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <i class="fa-solid fa-square-check fs-4 text-success mt-1"></i>
+                        <div>
+                            <h5 class="fw-bold mb-1">डिजिटल पावती</h5>
+                            <p class="text-muted mb-0">जमा झालेल्या प्रत्येक बचतीची डिजिटल पावती एसएमएस/पोर्टलवर उपलब्ध होते.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <i class="fa-solid fa-square-check fs-4 text-success mt-1"></i>
+                        <div>
+                            <h5 class="fw-bold mb-1">वार्षिक हिशोब</h5>
+                            <p class="text-muted mb-0">दरवर्षी मार्च महिन्यात सर्व खात्यांची तपासणी करून नफ्याचे वाटप केले जाते.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="p-4 rounded-4 shadow-sm text-center" style="background: linear-gradient(135deg, var(--dark-blue), #134074); color: white;">
+                        <i class="fa-solid fa-shield-halved display-3 text-warning mb-3"></i>
+                        <h3 class="fw-bold">तुमचे पैसे पूर्णपणे सुरक्षित!</h3>
+                        <p class="text-light mt-3">गणराज्य स्वयं सहाय्यता समूह हा संपूर्ण पारदर्शकतेवर आधारित काम करतो. प्रत्येक सदस्याला त्यांच्या सर्व जमा रक्कमेचा आणि व्याजाचा अचूक ट्रॅक मोबाईलवर मिळतो.</p>
+                        <a href="register.html" class="btn btn-tiranga mt-3 px-4">आजच बचत सुरू करा</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>गणराज्य स्वयं सहाय्यता समूह</h5>
+                    <p>सामाजिक एकता आणि आर्थिक समृद्धीसाठी कटिबद्ध असणारा महाराष्ट्रातील अग्रगण्य बचत समूह.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>महत्त्वाच्या लिंक्स</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-decoration-none text-light">&rsaquo; आमच्याबद्दल</a></li>
+                        <li><a href="savings.html" class="text-decoration-none text-light">&rsaquo; बचत योजना नियम</a></li>
+                        <li><a href="loan.html" class="text-decoration-none text-light">&rsaquo; कर्ज अर्ज प्रक्रिया</a></li>
+                        <li><a href="wishes.html" class="text-decoration-none text-light">&rsaquo; शुभेच्छा जनरेटर</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>सोशल मीडिया</h5>
+                    <div class="d-flex gap-3 fs-4">
+                        <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 bg-secondary">
+            <div class="text-center pt-2">
+                <p class="mb-0">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= FLOATING ACTION BUTTONS ================= -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank" title="WhatsApp वर संपर्क करा">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="float-btn float-call" title="थेट कॉल करा">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
