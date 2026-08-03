@@ -2,115 +2,491 @@
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
-    <!-- मोबाईल आणि पीसी स्क्रीन अ‍ॅडजस्टमेंटसाठी -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>गणराज्य स्वयं सहाय्यता समूह - मुख्य पृष्ठ</title>
+    <title>गणराज्य स्वयं सहाय्यता समूह - अधिकृत संकेतस्थळ</title>
     
-    <!-- Google Fonts (Poppins Font) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Poppins & Mukta for Marathi) -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- External CSS File -->
-    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* --- STICKY NAVBAR WITH TIRANGA ACCENT --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-tiranga:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 153, 51, 0.5);
+        }
+
+        /* --- HERO BANNER --- */
+        .hero-section {
+            background: linear-gradient(rgba(11, 37, 69, 0.88), rgba(19, 136, 8, 0.82)), url('images/banner.jpg') center/cover no-repeat;
+            padding: 100px 0 80px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--saffron);
+            color: var(--saffron);
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 22px;
+            transition: 0.3s;
+        }
+
+        .btn-outline-custom:hover {
+            background-color: var(--saffron);
+            color: white;
+        }
+
+        /* --- FEATURE & COUNTER CARDS --- */
+        .section-padding {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--dark-blue);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--saffron), var(--green));
+            border-radius: 2px;
+        }
+
+        .custom-card {
+            background: white;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            padding: 25px;
+            height: 100%;
+            border-top: 4px solid var(--navy);
+        }
+
+        .custom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-green { border-top-color: var(--green); }
+        .card-saffron { border-top-color: var(--saffron); }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        /* --- COUNTER SECTION --- */
+        .counter-section {
+            background: linear-gradient(135deg, var(--dark-blue), #134074);
+            color: white;
+            padding: 50px 0;
+        }
+
+        .counter-box h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--saffron);
+        }
+
+        /* --- NOTICE & GALLERY --- */
+        .notice-board {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-height: 350px;
+            overflow-y: auto;
+            border-left: 5px solid var(--saffron);
+        }
+
+        .notice-item {
+            padding: 12px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- FLOATING ACTION BUTTONS --- */
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+        .float-btn:hover { color: white; transform: scale(1.1); }
+
+        /* --- FOOTER --- */
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 50px 0 20px 0;
+            border-top: 5px solid var(--green);
+        }
+
+        .footer-custom h5 {
+            color: var(--saffron);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ================= 1. NAVBAR SECTION ================= -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="./images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.style.display='none'">
-                    <span>गणराज्य समूह</span>
-                </a>
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
 
-            <!-- मोबाईल हॅम्बर्गर बटण (Mobile Toggle Button) -->
-            <div class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-
-            <!-- नेव्हिगेशन लिंक्स -->
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
-                <li class="nav-item"><a href="loan.html" class="nav-link">Loans</a></li>
-                <li class="nav-item"><a href="savings.html" class="nav-link">Savings</a></li>
-                <li class="nav-item"><a href="installments.html" class="nav-link">Installments</a></li>
-                <li class="nav-item"><a href="reports.html" class="nav-link">Reports</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href="login.html" class="nav-btn">Login</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- ================= 2. HERO SECTION ================= -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>गणराज्य स्वयं सहाय्यता समूह</h1>
-            <p>एकत्र बचत, समृद्ध भविष्य! आपल्या सर्वांगीण आर्थिक प्रगतीसाठी आणि सुरक्षेसाठी एक विश्वासू सोबती.</p>
-            <div class="hero-btns">
-                <a href="register.html" class="btn-primary">नवीन खाते उघडा</a>
-                <a href="loan.html" class="btn-secondary">कर्ज योजना पहा</a>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">गणराज्य स्वयं सहाय्यता समूह</h1>
+            <p class="hero-subtitle">एकत्र बचत, समृद्ध भविष्य! आत्मनिर्भरतेकडे वाटचाल करणारा आपला विश्वासू सोबती.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="register.html" class="btn btn-tiranga btn-lg"><i class="fa-solid fa-user-plus me-1"></i> नवीन सदस्य व्हा</a>
+                <a href="wishes.html" class="btn btn-outline-custom btn-lg"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> शुभेच्छा बॅनर बनवा</a>
             </div>
         </div>
     </section>
 
-    <!-- ================= 3. SERVICES / FEATURES SECTION ================= -->
-    <section class="features">
-        <div class="section-title">
-            <h2>आमच्या प्रमुख सेवा</h2>
+    <!-- ================= FEATURES & SERVICES ================= -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>आमच्या प्रमुख सुविधा</h2>
+            </div>
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="custom-card card-saffron text-center">
+                        <i class="fa-solid fa-piggy-bank card-icon" style="color: var(--saffron);"></i>
+                        <h4>मासिक बचत योजना</h4>
+                        <p>दरमहा नियमित बचत करून आपल्या भविष्यासाठी भक्कम आर्थिक पाया तयार करा. पारदर्शक कारभार आणि खात्रीशीर परतावा.</p>
+                        <a href="savings.html" class="btn btn-sm btn-outline-warning mt-2">अधिक वाचा &rarr;</a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="custom-card card-green text-center">
+                        <i class="fa-solid fa-hand-holding-dollar card-icon" style="color: var(--green);"></i>
+                        <h4>सुलभ कर्ज सुविधा</h4>
+                        <p>व्यवसायवृद्धी किंवा वैयक्तिक तातडीच्या गरजांसाठी अत्यंत वाजवी व्याजदरात आणि कमी कागदपत्रांत कर्ज मंजुरी.</p>
+                        <a href="loan.html" class="btn btn-sm btn-outline-success mt-2">अधिक वाचा &rarr;</a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="custom-card text-center">
+                        <i class="fa-solid fa-qrcode card-icon" style="color: var(--navy);"></i>
+                        <h4>QR कोड पडताळणी</h4>
+                        <p>डिजिटल पारदर्शकता! प्रत्येक सदस्याला विशेष QR कार्ड, ज्यामुळे पावत्या आणि खात्याची माहिती एका क्लिकवर मिळेल.</p>
+                        <a href="members.html" class="btn btn-sm btn-outline-primary mt-2">पडताळणी करा &rarr;</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="grid-container">
-            <!-- Card 1: Savings -->
-            <div class="card">
-                <i class="fa-solid fa-piggy-bank"></i>
-                <h3>मासिक बचत योजना</h3>
-                <p>नियमित लहान बचतीतून मोठे उद्दिष्ट साध्य करा. आकर्षक व्याजदराचा आणि आर्थिक सुरक्षेचा लाभ घ्या.</p>
-                <a href="savings.html" class="card-link">अधिक माहिती <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+    </section>
 
-            <!-- Card 2: Loans -->
-            <div class="card">
-                <i class="fa-solid fa-hand-holding-dollar"></i>
-                <h3>कमीत कमी व्याजात कर्ज</h3>
-                <p>सोपे नियम, कमी कागदपत्रे आणि त्वरित कर्ज मंजुरी. तुमच्या व्यवसायासाठी व वैयक्तिक गरजांसाठी सोयीस्कर.</p>
-                <a href="loan.html" class="card-link">अधिक माहिती <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <!-- Card 3: Reports & Dashboard -->
-            <div class="card">
-                <i class="fa-solid fa-chart-line"></i>
-                <h3>हप्ते व अहवाल (Reports)</h3>
-                <p>तुमच्या खात्याचे हप्ते, शिल्लक रक्कम आणि सर्व आर्थिक रिपोर्ट्स कधीही पारदर्शकपणे पहा.</p>
-                <a href="reports.html" class="card-link">अहवाल पहा <i class="fa-solid fa-arrow-right"></i></a>
+    <!-- ================= COUNTER SECTION ================= -->
+    <section class="counter-section">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-6 col-md-3">
+                    <div class="counter-box">
+                        <h3>१५०+</h3>
+                        <p class="mb-0">एकूण सदस्य</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="counter-box">
+                        <h3>₹५० लाखा+)</h3>
+                        <p class="mb-0">एकूण बचत</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="counter-box">
+                        <h3>१००%</h3>
+                        <p class="mb-0">पारदर्शकता</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="counter-box">
+                        <h3>२४/७</h3>
+                        <p class="mb-0">डिजिटल सपोर्ट</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= 4. ABOUT SHORT SUMMARY ================= -->
-    <section style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <div style="background: #ffffff; padding: 35px; border-radius: 12px; box-shadow: var(--shadow); border-left: 6px solid var(--primary-navy, #0B2545);">
-            <h2 style="color: #0B2545; margin-bottom: 12px; font-size: 1.6rem;">आमच्या समूहाबद्दल</h2>
-            <p style="color: #1D2D44; font-size: 1rem; line-height: 1.8;">
-                <strong>गणराज्य स्वयं सहाय्यता समूह</strong> हा सदस्यांना एकत्र आणून त्यांच्यात बचतीची सवय निर्माण करण्यासाठी व परस्पर सहकार्यातून आत्मनिर्भर बनवण्यासाठी कार्यरत आहे. पारदर्शकता, सुरक्षा आणि सामाजिक बांधीलकी ही आमची मुख्य मूल्ये आहेत.
-            </p>
-            <a href="about.html" style="display: inline-block; margin-top: 15px; color: #E85D04; font-weight: 600;">अधिक वाचा <i class="fa-solid fa-arrow-right"></i></a>
+    <!-- ================= NOTICE BOARD & UPDATES ================= -->
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Notice Board -->
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-3" style="color: var(--dark-blue);"><i class="fa-solid fa-bullhorn text-warning me-2"></i>सूचना फलक (Notice Board)</h3>
+                    <div class="notice-board">
+                        <div class="notice-item">
+                            <span class="badge bg-danger">नवीन</span>
+                            <strong class="ms-2">मासिक बैठक:</strong> या महिन्याची बैठक पुढील रविवारी सकाळी १० वाजता आयोजित केली आहे.
+                        </div>
+                        <div class="notice-item">
+                            <span class="badge bg-success">अपडेट</span>
+                            <strong class="ms-2">वार्षिक अहवाल:</strong> सन २०२५-२६ चा आर्थिक अहवाल Reports सेक्शनमध्ये उपलब्ध आहे.
+                        </div>
+                        <div class="notice-item">
+                            <span class="badge bg-info text-dark">माहिती</span>
+                            <strong class="ms-2">स्वातंत्र्यदिन शुभेच्छा:</strong> सर्व सदस्यांसाठी नवीन शुभेच्छा बॅनर जनरेटर सुरू केला आहे.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Gallery -->
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-3" style="color: var(--dark-blue);"><i class="fa-solid fa-images text-success me-2"></i>समूह गॅलरी</h3>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <img src="images/banner.jpg" class="gallery-img" alt="बैठक photo" onerror="this.src='https://via.placeholder.com/300x200?text=Ganrajya+Group'">
+                        </div>
+                        <div class="col-6">
+                            <img src="images/logo_2.png" class="gallery-img" alt="कार्यक्रम photo" onerror="this.src='https://via.placeholder.com/300x200?text=Activity'">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- ================= 5. FOOTER ================= -->
-    <footer class="footer">
-        <p>&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+    <!-- ================= CONTACT & GOOGLE MAP ================= -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>संपर्क साधा</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-5">
+                    <div class="custom-card">
+                        <h4 class="fw-bold mb-3" style="color: var(--dark-blue);">मुख्य कार्यालय</h4>
+                        <p><i class="fa-solid fa-location-dot text-danger me-2"></i> गणराज्य स्वयं सहाय्यता समूह भवन, मुख्य रस्ता, महाराष्ट्र.</p>
+                        <p><i class="fa-solid fa-phone text-primary me-2"></i> +91 98765 43210</p>
+                        <p><i class="fa-solid fa-envelope text-warning me-2"></i> contact@ganrajyagroup.com</p>
+                        <hr>
+                        <h5>वेळ:</h5>
+                        <p class="mb-0">सोमवार ते शनिवार: सकाळी १०:०० ते संध्याकाळी ६:००</p>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="rounded shadow-sm overflow-hidden h-100" style="min-height: 250px;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.8082084661763!2d72.85!3d19.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTkuMTInTCA3Mi44NScE!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>गणराज्य स्वयं सहाय्यता समूह</h5>
+                    <p>सामाजिक एकता आणि आर्थिक समृद्धीसाठी कटिबद्ध असणारा महाराष्ट्रातील अग्रगण्य बचत समूह.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>महत्त्वाच्या लिंक्स</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-decoration-none text-light">&rsaquo; आमच्याबद्दल</a></li>
+                        <li><a href="savings.html" class="text-decoration-none text-light">&rsaquo; बचत योजना नियम</a></li>
+                        <li><a href="loan.html" class="text-decoration-none text-light">&rsaquo; कर्ज अर्ज प्रक्रिया</a></li>
+                        <li><a href="wishes.html" class="text-decoration-none text-light">&rsaquo; शुभेच्छा जनरेटर</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>सोशल मीडिया</h5>
+                    <div class="d-flex gap-3 fs-4">
+                        <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 bg-secondary">
+            <div class="text-center pt-2">
+                <p class="mb-0">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- External JavaScript File -->
-    <script src="./js/app.js"></script>
+    <!-- ================= FLOATING ACTION BUTTONS ================= -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank" title="WhatsApp वर संपर्क करा">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="float-btn float-call" title="थेट कॉल करा">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scroll & Active menu auto selector
+        console.log("Ganrajya Group Website Loaded Successfully!");
+    </script>
 </body>
 </html>
