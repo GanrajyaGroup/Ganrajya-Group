@@ -3,73 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>सदस्य नोंदणी | गणराज्य समूह</title>
+    <title>नवीन सदस्य नोंदणी - गणराज्य स्वयं सहाय्यता समूह</title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-light">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-blue: #0B2545;
+            --light-bg: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Mukta', 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* --- STICKY NAVBAR --- */
+        .navbar-custom {
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--saffron);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron);
+            background: #fff;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--saffron) !important;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+
+        .btn-tiranga {
+            background: linear-gradient(45deg, var(--saffron), #e65c00);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 153, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            background: linear-gradient(rgba(11, 37, 69, 0.9), rgba(19, 136, 8, 0.85)), url('images/banner.jpg') center/cover no-repeat;
+            padding: 40px 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- FORM STYLES --- */
+        .register-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--green);
+            padding: 30px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-section-title {
+            color: var(--dark-blue);
+            font-weight: 700;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .form-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 0.25rem rgba(19, 136, 8, 0.25);
+        }
+
+        /* --- FLOATING BUTTONS --- */
+        .floating-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        .float-whatsapp { background-color: #25D366; }
+        .float-call { background-color: #007bff; }
+
+        /* --- FOOTER --- */
+        .footer-custom {
+            background-color: var(--dark-blue);
+            color: #ddd;
+            padding: 50px 0 20px 0;
+            border-top: 5px solid var(--green);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="index.html"><i class="fa-solid fa-users-line me-2"></i>गणराज्य ग्रुप</a>
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_2.png" alt="गणराज्य लोगो" class="logo-img" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span>गणराज्य स्वयं सहाय्यता समूह</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्यपृष्ठ</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="register.html">सदस्य नोंदणी</a></li>
-                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज अर्ज</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">लॉगिन</a></li>
-                    <li class="nav-item"><a class="nav-link" href="wishes.html">विशेष शुभेच्छा</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">मुख्य पृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savings.html">बचत योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan.html">कर्ज सुविधा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="members.html">सदस्य</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wishes.html">शुभेच्छा बॅनर</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">संपर्क</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-tiranga text-white my-2 my-lg-0" href="login.html"><i class="fa-solid fa-right-to-bracket me-1"></i> लॉगिन</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card p-4 shadow-sm border-0">
-                    <h3 class="text-center mb-4 text-primary fw-bold">नवीन सदस्य नोंदणी अर्ज</h3>
-                    <form onsubmit="alert('नोंदणी अर्ज सबमिट झाला!'); return false;">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">पूर्ण नाव *</label>
-                                <input type="text" class="form-control" required placeholder="नाव आडनाव">
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header pb-5">
+        <div class="container">
+            <h1 class="fw-bold mb-2">नवीन सदस्य नोंदणी</h1>
+            <p class="lead mb-4">गणराज्य कुटुंबात सामील होण्यासाठी खालील फॉर्म भरा</p>
+        </div>
+    </section>
+
+    <!-- ================= REGISTRATION FORM SECTION ================= -->
+    <section class="mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="register-card">
+                        
+                        <form onsubmit="event.preventDefault(); alert('तुमचा अर्ज यशस्वीरित्या सबमिट झाला आहे! कमिटीकडून लवकरच संपर्क केला जाईल.');">
+                            
+                            <!-- १. वैयक्तिक माहिती -->
+                            <h4 class="form-section-title"><i class="fa-solid fa-user-check text-success me-2"></i> १. वैयक्तिक माहिती</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">पूर्ण नाव (Full Name) *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fa-solid fa-user text-muted"></i></span>
+                                        <input type="text" class="form-control" placeholder="उदा. रमेश तुकाराम पाटील" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">मोबाईल नंबर (Mobile Number) *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fa-solid fa-phone text-muted"></i></span>
+                                        <input type="tel" class="form-control" placeholder="१० अंकी नंबर" pattern="[0-9]{10}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-secondary">जन्म तारीख (DOB) *</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-secondary">लिंग (Gender) *</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>निवडा...</option>
+                                        <option value="Male">पुरुष</option>
+                                        <option value="Female">स्त्री</option>
+                                        <option value="Other">इतर</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-secondary">ईमेल आयडी (पर्यायी)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="fa-solid fa-envelope text-muted"></i></span>
+                                        <input type="email" class="form-control" placeholder="example@gmail.com">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">मोबाईल नंबर *</label>
-                                <input type="tel" class="form-control" required placeholder="10 अंकी नंबर">
+
+                            <!-- २. पत्ता व संपर्क -->
+                            <h4 class="form-section-title"><i class="fa-solid fa-map-location-dot text-primary me-2"></i> २. रहिवासी पत्ता</h4>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small text-secondary">सध्याचा संपूर्ण पत्ता *</label>
+                                    <textarea class="form-control" rows="2" placeholder="घर क्र., इमारत, रस्ता, विभाग..." required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">शहर / गाव *</label>
+                                    <input type="text" class="form-control" placeholder="शहर किंवा गावाचे नाव" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">पिन कोड (Pincode) *</label>
+                                    <input type="text" class="form-control" placeholder="उदा. 421503" pattern="[0-9]{6}" required>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">ओळखपत्र (उदा. पॅन कार्ड/ड्रायव्हिंग लायसन्स)</label>
-                                <input type="text" class="form-control" placeholder="ओळखपत्र क्रमांक">
+
+                            <!-- ३. वारसदार माहिती -->
+                            <h4 class="form-section-title"><i class="fa-solid fa-users text-warning me-2"></i> ३. वारसदाराची माहिती (Nominee)</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">वारसदाराचे नाव *</label>
+                                    <input type="text" class="form-control" placeholder="वारसदाराचे पूर्ण नाव" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">वारसदाराशी नाते *</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>निवडा...</option>
+                                        <option>पती / पत्नी</option>
+                                        <option>मुलगा / मुलगी</option>
+                                        <option>आई / वडील</option>
+                                        <option>भाऊ / बहीण</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">व्यवसाय</label>
-                                <input type="text" class="form-control" placeholder="उदा. शेती/नोकरी">
+
+                            <!-- ४. कागदपत्रे अपलोड -->
+                            <h4 class="form-section-title"><i class="fa-solid fa-file-arrow-up text-danger me-2"></i> ४. आवश्यक कागदपत्रे</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">आधार कार्ड नंबर *</label>
+                                    <input type="text" class="form-control" placeholder="१२ अंकी आधार नंबर" pattern="[0-9]{12}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">पॅन कार्ड नंबर (पर्यायी)</label>
+                                    <input type="text" class="form-control" placeholder="उदा. ABCDE1234F">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">स्वतःचा फोटो अपलोड करा (Passport Size) *</label>
+                                    <input type="file" class="form-control" accept="image/jpeg, image/png" required>
+                                    <small class="text-muted">फक्त JPG किंवा PNG फॉरमॅट (Max: 2MB)</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">आधार कार्ड फोटो अपलोड करा *</label>
+                                    <input type="file" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <label class="form-label">संपूर्ण पत्ता *</label>
-                                <textarea class="form-control" rows="2" required></textarea>
+
+                            <!-- अटी व शर्ती -->
+                            <div class="mt-4 p-3 bg-light rounded border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label text-secondary small fw-bold" for="termsCheck">
+                                        मी प्रमाणित करतो/करते की वरील सर्व माहिती अचूक आहे. मला समूहाचे सर्व नियम आणि अटी मान्य आहेत.
+                                    </label>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">वारसदाराचे नाव (Nominee) *</label>
-                                <input type="text" class="form-control" required>
+
+                            <!-- Submit Button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-tiranga btn-lg px-5 w-100 w-md-auto">
+                                    <i class="fa-solid fa-paper-plane me-2"></i> अर्ज नोंदणी करा (Submit Application)
+                                </button>
+                                <p class="small text-muted mt-3">आधीच सदस्य आहात? <a href="login.html" class="fw-bold text-primary">येथे लॉगिन करा</a></p>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">नाते</label>
-                                <input type="text" class="form-control" placeholder="उदा. पत्नी/मुलगा">
-                            </div>
-                            <div class="col-12 text-center mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">अर्ज सबमिट करा</button>
-                            </div>
-                        </div>
-                    </form>
+
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>गणराज्य स्वयं सहाय्यता समूह</h5>
+                    <p>सामाजिक एकता आणि आर्थिक समृद्धीसाठी कटिबद्ध असणारा महाराष्ट्रातील अग्रगण्य बचत समूह.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>महत्त्वाच्या लिंक्स</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-decoration-none text-light">&rsaquo; आमच्याबद्दल</a></li>
+                        <li><a href="savings.html" class="text-decoration-none text-light">&rsaquo; बचत योजना नियम</a></li>
+                        <li><a href="loan.html" class="text-decoration-none text-light">&rsaquo; कर्ज अर्ज प्रक्रिया</a></li>
+                        <li><a href="login.html" class="text-decoration-none text-light">&rsaquo; सदस्य लॉगिन</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5>सोशल मीडिया</h5>
+                    <div class="d-flex justify-content-center justify-content-lg-start gap-3 fs-4">
+                        <a href="#" class="text-light"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-light"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 bg-secondary">
+            <div class="text-center pt-2">
+                <p class="mb-0">&copy; 2026 गणराज्य स्वयं सहाय्यता समूह. सर्व हक्क सुरक्षित.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= FLOATING ACTION BUTTONS ================= -->
+    <div class="floating-btn-container">
+        <a href="https://wa.me/919876543210" class="float-btn float-whatsapp" target="_blank" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="float-btn float-call" title="Call">
+            <i class="fa-solid fa-phone"></i>
+        </a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
